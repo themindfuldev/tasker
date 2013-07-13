@@ -1,7 +1,7 @@
 Tasker
 ======
 
-Tasker is a Backbone.js sample application, developed by Tiago Romero Garcia to illustrate some articles he wrote for Java Magazine in Brazil.
+Tasker is a Backbone.js sample application, developed by [Tiago Romero Garcia](http://www.tgarcia.com.br) to illustrate some articles he wrote for [Java Magazine](www.devmedia.com.br/java) in Brazil.
 
 This application will simulate an Agile card system, using Java and Play! Framework as back-end.
 

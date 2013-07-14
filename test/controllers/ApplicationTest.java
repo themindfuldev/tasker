@@ -3,6 +3,9 @@ package controllers;
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import play.mvc.Content;
@@ -20,9 +23,11 @@ public class ApplicationTest {
 	 */
 	@Test
 	public void testTemplateRenderization() {
-		Content html = views.html.index.render();
+		List<String> scriptsList = new ArrayList<String>();
+		scriptsList.add("test.js");
+		Content html = views.html.index.render(scriptsList);
 		assertThat(contentType(html)).isEqualTo("text/html");
-		assertThat(html.body().contains("Tasker")).isTrue();
+		assertThat(html.body().contains("test.js")).isTrue();
 	}
 
 }

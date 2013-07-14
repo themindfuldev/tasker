@@ -3,20 +3,21 @@ App = {
 	Views : {},
 	Collections : {},
 	Routers : {},
-	RoutersCache : {},
 
 	start : function() {
-		App.RoutersCache.appRouter = new App.Routers.App();
-		Backbone.history.start({
-			pushState : true
-		});
-
+		var appRouter = new App.Routers.App();
+		
 		// Setting up links to routing
-		$('body').on('click', 'a', function(e) {
+		$('body').on('click', 'a[data-internal]', function(e) {
 			e.preventDefault();
-			App.RoutersCache.appRouter.navigate(e.currentTarget.pathname, {
+			appRouter.navigate(e.currentTarget.pathname, {
 				trigger : true
 			});
+		});
+		
+		// Starting backbone history
+		Backbone.history.start({
+			pushState : true
 		});
 	}
 }

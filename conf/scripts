@@ -1,4 +1,4 @@
-# Scripts
+# Scripts includes
 # This file defines all javascripts to be included on the templates, in order.
 # Please specify either a filename or a directory from /app/assets/javascripts or /public/javascripts 
 # ~~~~
@@ -8,6 +8,7 @@ json2.min.js
 underscore.min.js
 backbone.min.js
 handlebars.min.js
+bootstrap.min.js
 app.js
 lib
 models

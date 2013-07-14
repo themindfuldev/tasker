@@ -1,7 +1,15 @@
-@(scripts: List[String])
+@(stylesheets: List[String], scripts: List[String])
 
-@main("Tasker") {
+@stylesheetIncludes = {
+	@for(stylesheet <- stylesheets) {
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("")@stylesheet">
+	} 
+}
+
+@scriptIncludes = {
 	@for(script <- scripts) {
 	<script src="@routes.Assets.at("")@script" type="text/javascript"></script>
 	} 
 }
+
+@main(stylesheetIncludes, scriptIncludes)

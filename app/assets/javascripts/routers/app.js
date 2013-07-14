@@ -7,7 +7,22 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	viewAll : function() {
-		console.log('viewAll');
+		var cardCollection = new App.Collections.Cards();
+		cardCollection.fetch({
+			success: function(collection, response, options) {
+				console.log("Fetched cards collection = " + collection.models); 				
+
+				var viewAllView = new App.Views.ViewAll({
+					collection: collection,
+					el: $('#contents')
+				});
+				viewAllView.render();
+				console.log('Rendered view = viewAll'); 				
+			},
+			error : function(collection, response, options) {
+				console.log('Could not fetch cards collection');
+			}
+		});
 	},
 
 	viewCard : function(id) {

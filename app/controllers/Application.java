@@ -26,22 +26,40 @@ public class Application extends Controller {
 	 * @return the result
 	 */
 	public static Result index() {
+		List<String> stylesheetsList = getIncludes("conf/stylesheets", "stylesheets");
+		List<String> scriptsList = getIncludes("conf/scripts", "javascripts");
+
+		return ok(index.render(stylesheetsList, scriptsList));
+	}
+
+	/**
+	 * Reads a includes file and returns as a list of qualified filenames
+	 * 
+	 * @param includeFile
+	 *           the file containing the includes
+	 * @param includeFolder
+	 *           the folder where the included files will be retrieved from
+	 * @return a list of qualified filenames
+	 */
+	private static List<String> getIncludes(String includeFile,
+			String includeFolder) {
 		List<String> scriptsList = new ArrayList<String>();
 
 		try {
 			String line = null;
-			BufferedReader scriptsFileReader = new BufferedReader(
-				new FileReader(Play.current().getFile("conf/scripts"))
-			);
+			BufferedReader scriptsFileReader = new BufferedReader(new FileReader(
+					Play.current().getFile(includeFile)));
 
 			while ((line = scriptsFileReader.readLine()) != null) {
 				line = line.trim();
 				if (!line.isEmpty() && line.charAt(0) != '#') {
-					File file = Play.current().getFile("app/assets/javascripts/" + line);
+					File file = Play.current().getFile(
+							"app/assets/" + includeFolder + "/" + line);
 					if (file.exists() == false) {
-						file = Play.current().getFile("public/javascripts/" + line);
+						file = Play.current().getFile(
+								"public/" + includeFolder + "/" + line);
 					}
-					addFile(file, scriptsList, "javascripts/");
+					addFile(file, scriptsList, includeFolder + "/");
 				}
 			}
 
@@ -49,24 +67,31 @@ public class Application extends Controller {
 		} catch (Exception e) {
 			Logger.error(e.getLocalizedMessage());
 		}
-
-		return ok(index.render(scriptsList));
+		return scriptsList;
 	}
-	
-	private static void addFile(File file, List<String> scriptsList, String parentDirectory) {
-		if (file.exists()) {
-			if (file.isFile()) { 
-				scriptsList.add(parentDirectory + file.getName());
-			}
-			else if (file.isDirectory()) {
-				parentDirectory += file.getName() + "/";
-				File[] childrenFiles = file.listFiles();
-				for (File childrenFile: childrenFiles) {
-					addFile(childrenFile, scriptsList, parentDirectory);
-				}
+
+	/**
+	 * Recursively adds a file to the includes list
+	 * 
+	 * @param file
+	 *           the file
+	 * @param includesList
+	 *           the includes list
+	 * @param parentDirectory
+	 *           the parent directory
+	 */
+	private static void addFile(File file, List<String> includesList,
+			String parentDirectory) {
+		if (file.isDirectory()) {
+			parentDirectory += file.getName() + "/";
+			File[] childrenFiles = file.listFiles();
+			for (File childrenFile : childrenFiles) {
+				addFile(childrenFile, includesList, parentDirectory);
 			}
 		}
-		
+		else {
+			includesList.add(parentDirectory + file.getName());	
+		}
 	}
 
 }

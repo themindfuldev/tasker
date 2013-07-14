@@ -1,0 +1,9 @@
+# Stylesheets includes
+# This file defines all stylesheets to be included on the templates, in order.
+# Please specify either a filename or a directory from /app/assets/stylesheets or /public/stylesheets 
+# ~~~~
+
+bootstrap.min.css
+bootstrap-responsive.min.css
+font-awesome.min.css
+main.css

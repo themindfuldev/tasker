@@ -33,6 +33,15 @@ public class Application extends Controller {
 	}
 
 	/**
+	 * This method will route to the index view.
+	 * 
+	 * @return the result
+	 */
+	public static Result routeToIndex(String path) {
+		return index();
+	}
+
+	/**
 	 * Reads a includes file and returns as a list of qualified filenames
 	 * 
 	 * @param includeFile

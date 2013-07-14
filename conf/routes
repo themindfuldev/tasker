@@ -14,3 +14,4 @@ GET		/assets/*file					controllers.Assets.at(path="/public", file)
 
 # Backbone router
 GET		/									controllers.Application.index()
+GET		/*path							controllers.Application.routeToIndex(path)

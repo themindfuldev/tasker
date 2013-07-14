@@ -4,7 +4,11 @@ App.Views.NewCard = Backbone.View.extend({
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.options));
-		return this.$el;
+		this.$el.slideDown();
+	},
+	
+	collapse : function() {
+		this.$el.slideUp();
 	},
 
 	events: {

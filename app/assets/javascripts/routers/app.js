@@ -8,16 +8,16 @@ App.Routers.App = Backbone.Router.extend({
 
 	viewAll : function() {
 		var self = this,
-				cardCollection = new App.Collections.Cards();
+			cardCollection = new App.Collections.Cards();
 		
 		cardCollection.fetch({
 			success: function(collection, response, options) {
 				var view = new App.Views.ViewAll({
-						collection: collection
-					}),
-					element = $('section#contents');
+						collection: collection,
+						el: $('section#contents')
+					});
 				
-				self.render(view, element);
+				self.render(view);
 			},
 			error : function(collection, response, options) {
 				console.log('Could not fetch cards collection');
@@ -34,12 +34,11 @@ App.Routers.App = Backbone.Router.extend({
 		cardModel.fetch({
 			success: function(model, response, options) {
 				var view = new App.Views.ViewCard({
-						model: model
-					}),
-					element = $('section#overlay');
+						model: model,
+						el: $('section#overlay')
+					});
 				
-				self.render(view, element);
-				element.slideDown();
+				self.render(view);
 			},
 			error : function(collection, response, options) {
 				console.log('Could not fetch card with id ' + id);
@@ -49,28 +48,26 @@ App.Routers.App = Backbone.Router.extend({
 
 	newCard : function(id) {
 		var view = new App.Views.NewCard({
-				id: id
-			}),
-			element = $('section#overlay');
+				id: id,
+				el: $('section#overlay')
+			});
 		
-		this.render(view, element);
-		element.slideDown();
+		this.render(view);
 	},
 	
-	render: function(view, element) {
+	render: function(view) {
 		if (this.currentView) {
-			var overlayElement = $('section#overlay');
-			if (overlayElement.css('display') !== 'none') {
-				$('section#overlay').slideUp();
+			if (this.currentView.collapse) {
+				this.currentView.collapse();
 			}
-			
-			this.currentView.remove();
+			this.currentView.$el.html();
+			this.currentView.stopListening();
 		} 
 		this.currentView = view;
 		
 		$("ul#menu li").removeClass('active');
 		$("li#menu_" + view.name).addClass('active');
-		element.html(view.render());
+		view.render();
 
 		console.log('Rendered ' + view.name); 						
 	}

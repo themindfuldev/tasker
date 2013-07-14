@@ -1,7 +1,9 @@
 App.Views.ViewAll = Backbone.View.extend({
-	template : HandlebarsCompiler.get('view_all'),
-
+	name: 'view_all',
+	
 	render : function() {
-		this.$el.html(this.template());
+		var template = HandlebarsCompiler.get(this.name);
+		this.$el.html(template());
+		return this.$el;
 	}
 });

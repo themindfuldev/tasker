@@ -1,7 +1,24 @@
 App.Views.NewCard = Backbone.View.extend({
-	template : HandlebarsCompiler.get('new_card'),
-
+	name : 'new_card',
+	
 	render : function() {
-		this.$el.html(this.template(this.options));
+		var template = HandlebarsCompiler.get(this.name);
+		this.$el.html(template(this.options));
+		return this.$el;
+	},
+
+	events: {
+	  'submit': 'save',
+	  'click input#cancel_button': 'cancel'
+	},
+	
+	save: function(e) {
+		e.preventDefault();
+		var newDescription = this.$('input[name=description]').val();
+		this.model.save({description: newDescription});
+	},
+	
+	cancel: function(e) {
+		App.navigate('/');
 	}
 });

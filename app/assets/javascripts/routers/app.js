@@ -1,23 +1,23 @@
 App.Routers.App = Backbone.Router.extend({
 	routes : {
 		'' : 'viewAll',
-		'/card/:id' : 'viewCard',
-		'/card/(:id/)new' : 'newCard',
+		'card/:id' : 'viewCard',
+		'card/:id/new' : 'newCard',
 		'*path' : 'viewAll'
 	},
 
 	viewAll : function() {
-		var cardCollection = new App.Collections.Cards();
+		var self = this,
+				cardCollection = new App.Collections.Cards();
+		
 		cardCollection.fetch({
 			success: function(collection, response, options) {
-				console.log('Fetched cards collection = ' + collection.models); 				
-
-				var viewAllView = new App.Views.ViewAll({
-					collection: collection,
-					el: $('#contents')
-				});
-				viewAllView.render();
-				console.log('Rendered view = viewAll'); 				
+				var view = new App.Views.ViewAll({
+						collection: collection
+					}),
+					element = $('section#contents');
+				
+				self.render(view, element);
 			},
 			error : function(collection, response, options) {
 				console.log('Could not fetch cards collection');
@@ -26,19 +26,20 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	viewCard : function(id) {
-		var cardModel = new App.Model.Card({
-			id: id
-		});
+		var self = this,
+			cardModel = new App.Model.Card({
+				id: id
+			});
+		
 		cardModel.fetch({
 			success: function(model, response, options) {
-				console.log('Fetched card with id ' + id + ' = ' + model.model); 				
-
-				var viewCardView = new App.Views.ViewCard({
-					model: model,
-					el: $('#contents')
-				});
-				viewCardView.render();
-				console.log('Rendered view = viewCard'); 				
+				var view = new App.Views.ViewCard({
+						model: model
+					}),
+					element = $('section#overlay');
+				
+				self.render(view, element);
+				element.slideDown();
 			},
 			error : function(collection, response, options) {
 				console.log('Could not fetch card with id ' + id);
@@ -47,11 +48,30 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	newCard : function(id) {
-		var newCardView = new App.Views.NewCard({
-			id: id,
-			el: $('#contents')
-		});
-		newCardView.render();
-		console.log('Rendered view = newCard'); 				
+		var view = new App.Views.NewCard({
+				id: id
+			}),
+			element = $('section#overlay');
+		
+		this.render(view, element);
+		element.slideDown();
+	},
+	
+	render: function(view, element) {
+		if (this.currentView) {
+			var overlayElement = $('section#overlay');
+			if (overlayElement.css('display') !== 'none') {
+				$('section#overlay').slideUp();
+			}
+			
+			this.currentView.remove();
+		} 
+		this.currentView = view;
+		
+		$("ul#menu li").removeClass('active');
+		$("li#menu_" + view.name).addClass('active');
+		element.html(view.render());
+
+		console.log('Rendered ' + view.name); 						
 	}
 });

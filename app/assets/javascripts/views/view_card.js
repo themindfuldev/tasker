@@ -1,7 +1,9 @@
 App.Views.ViewCard = Backbone.View.extend({
-	template : HandlebarsCompiler.get('view_card'),
-
+	name: 'view_card',
+	
 	render : function() {
-		this.$el.html(this.template());
+		var template = HandlebarsCompiler.get(this.name);
+		this.$el.html(template());
+		return this.$el;
 	}
 });

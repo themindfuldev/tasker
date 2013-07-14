@@ -1,7 +1,17 @@
 <form>
 	<input name="id" type="hidden" value="{{id}}" />
-	<input name="title" autofocus required />
-	<input name="description" required />
-	<input name="assignee" required />
-	<input type="submit" value="Salvar" />
+	
+	<label for="title">Título</label>
+	<input name="title" autofocus />
+	
+	<label for="description">Descrição</label>
+	<input name="description" />
+	
+	<label for="assignee">Atribuido para</label>
+	<input name="assignee" />
+	
+	<hr/>
+	
+	<input id="submit_button" type="submit" class="btn btn-success" value="Salvar" ></input>
+	<input id="cancel_button" type="button" class="btn btn-warning" value="Cancelar"></input>
 </form>

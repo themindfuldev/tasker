@@ -1,8 +1,14 @@
 App.Routers.App = Backbone.Router.extend({
+	
+	initialize: function(options) {
+		this.route(/^card\/(\d+)$/, 'viewCard');
+		this.route(/^card\/(\d+)\/new-story$/, 'newStory');
+		this.route(/^card\/(\d+)\/new-issue$/, 'newIssue');
+	},
+	
 	routes : {
 		'' : 'viewAll',
-		'card/:id' : 'viewCard',
-		'card/:id/new' : 'newCard',
+		'card/new-project' : 'newProject',
 		'*path' : 'viewAll'
 	},
 
@@ -46,15 +52,35 @@ App.Routers.App = Backbone.Router.extend({
 		});
 	},
 
-	newCard : function(id) {
+	newProject : function() {
 		var view = new App.Views.NewCard({
-				id: id,
+				type: App.CardTypes.project,
 				el: $('section#overlay')
 			});
 		
 		this.render(view);
 	},
 	
+	newStory : function(id) {
+		var view = new App.Views.NewCard({
+				type: App.CardTypes.story,
+				id: id,
+				el: $('section#overlay')
+			});
+		
+		this.render(view);
+	},
+
+	newIssue : function(id) {
+		var view = new App.Views.NewCard({
+				type: App.CardTypes.issue,
+				id: id,
+				el: $('section#overlay')
+			});
+		
+		this.render(view);
+	},
+
 	render: function(view) {
 		if (this.currentView) {
 			if (this.currentView.collapse) {

@@ -23,11 +23,17 @@ public class ApplicationTest {
 	 */
 	@Test
 	public void testTemplateRenderization() {
+		List<String> stylesheetsList = new ArrayList<String>();
+		stylesheetsList.add("test.css");
+		
 		List<String> scriptsList = new ArrayList<String>();
 		scriptsList.add("test.js");
-		Content html = views.html.index.render(scriptsList);
+		
+		Content html = views.html.index.render(stylesheetsList, scriptsList);
+		
 		assertThat(contentType(html)).isEqualTo("text/html");
 		assertThat(html.body().contains("test.js")).isTrue();
+		assertThat(html.body().contains("test.css")).isTrue();
 	}
 
 }

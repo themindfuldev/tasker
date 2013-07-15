@@ -3,6 +3,12 @@ App = {
 	Views : {},
 	Collections : {},
 	Routers : {},
+	
+	CardTypes: {
+		'project': 1,
+		'story': 2,
+		'issue': 3
+	},
 
 	start : function() {
 		var appRouter = new App.Routers.App();

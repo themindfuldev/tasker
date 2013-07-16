@@ -86,7 +86,6 @@ App.Routers.App = Backbone.Router.extend({
 			if (this.currentView.collapse) {
 				this.currentView.collapse();
 			}
-			this.currentView.$el.html();
 			this.currentView.stopListening();
 		} 
 		this.currentView = view;

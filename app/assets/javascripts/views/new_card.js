@@ -17,15 +17,28 @@ App.Views.NewCard = Backbone.View.extend({
 	},
 	
 	save: function(e) {
+		var model, data;
+		
 		e.preventDefault();
-		var model = new App.Models.Card({
+
+		model = new App.Models.Card();
+		data = {
 			title: this.$('input[name=title]').val(),
 			description: this.$('input[name=description]').val(),
 			assignee: this.$('input[name=assignee]').val(),
-			type: 1
+			type: this.options.type
 			//parent_id: this.$('input[name=parent_id]').val()
+		};
+
+		model.save(data, {
+			success: function(model, response, options) {
+				App.navigate('/');
+			},
+			
+			error: function(model, response, options) {
+			
+			}
 		});
-		model.save();
 	},
 	
 	cancel: function(e) {

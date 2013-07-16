@@ -3,9 +3,12 @@ package models;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.db.ebean.Model;
 
@@ -30,27 +33,31 @@ public class Card extends Model {
 	@Id
 	private Long id;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private Type type;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private Status status;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String title;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String description;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private String assignee;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private Date createdDate;
 
-	@Basic(optional = false)
+	@Column(nullable = false)
 	private Date modifiedDate;
 
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	private Card parent;
+	
+	@OneToMany(mappedBy="parent", cascade = CascadeType.REMOVE)
 	private List<Card> children;
 
 	/*
@@ -112,8 +119,12 @@ public class Card extends Model {
 		return children;
 	}
 
-	public void setChildren(List<Card> children) {
-		this.children = children;
+	public Card getParent() {
+		return parent;
+	}
+
+	public void setParent(Card parent) {
+		this.parent = parent;
 	}
 
 	/*
@@ -127,8 +138,8 @@ public class Card extends Model {
 	 * 
 	 * @return a list of cards
 	 */
-	public static List<Card> all() {
-		return find.all();
+	public static List<Card> allProjects() {
+		return find.where().eq("type", Card.Type.PROJECT).findList();
 	}
 
 	/**

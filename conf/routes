@@ -3,7 +3,7 @@
 # ~~~~
 
 # Tasks          
-GET		/api/cards						controllers.Cards.getAll()
+GET		/api/cards						controllers.Cards.getAllProjects()
 GET		/api/cards/:id					controllers.Cards.get(id: Long)
 POST		/api/cards						controllers.Cards.create()
 PUT		/api/cards/:id					controllers.Cards.update(id: Long)

@@ -12,6 +12,7 @@ create table card (
   assignee                  varchar(255) not null,
   created_date              timestamp not null,
   modified_date             timestamp not null,
+  parent_id                 bigint,
   constraint ck_card_type check (type in (0,1,2,3,4)),
   constraint ck_card_status check (status in (0,1,2,3)),
   constraint pk_card primary key (id))
@@ -19,6 +20,8 @@ create table card (
 
 create sequence card_seq;
 
+alter table card add constraint fk_card_parent_1 foreign key (parent_id) references card (id) on delete restrict on update restrict;
+create index ix_card_parent_1 on card (parent_id);
 
 
 

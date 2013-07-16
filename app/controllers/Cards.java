@@ -21,12 +21,12 @@ import play.mvc.Result;
 public class Cards extends Controller {
 
 	/**
-	 * Retrieves all cards and return OK (200) with the cards as JSON.
+	 * Retrieves all projects and return OK (200) with the cards as JSON.
 	 * 
 	 * @return the result
 	 */
-	public static Result getAll() {
-		List<Card> cards = Card.all();
+	public static Result getAllProjects() {
+		List<Card> cards = Card.allProjects();
 		return ok(Json.toJson(cards));
 	}
 

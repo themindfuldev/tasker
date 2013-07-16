@@ -26,8 +26,8 @@ import play.mvc.Http.Status;
 public class CardsTest {
 	
 	private static final short PORT = 3333;
-	private static Long CORRECT_ID;
-	private static final Long WRONG_ID = -1L;
+	private static Long correctProjectId;
+	private static Long wrongProjectId = -1L;
 	
 	private ObjectMapper objectMapper;
 	
@@ -68,7 +68,7 @@ public class CardsTest {
  	      	
  	      	Response response = WS.url("http://localhost:" + PORT + "/api/cards").post(objectNode).get();
  	         assertThat(response.getStatus()).isEqualTo(Status.OK);
- 	         CORRECT_ID = response.asJson().get("id").asLong(); 	         
+ 	         correctProjectId = response.asJson().get("id").asLong(); 	         
  			}
 	  });
 	}
@@ -82,7 +82,7 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  	      public void run() {
 				assertThat(
- 	           WS.url("http://localhost:" + PORT + "/api/cards/" + WRONG_ID).get().get().getStatus()
+ 	           WS.url("http://localhost:" + PORT + "/api/cards/" + wrongProjectId).get().get().getStatus()
  	         ).isEqualTo(Status.NOT_FOUND);
 			}
  		});
@@ -97,7 +97,7 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  	      public void run() {
 				assertThat(
- 	           WS.url("http://localhost:" + PORT + "/api/cards/" + CORRECT_ID).get().get().getStatus()
+ 	           WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).get().get().getStatus()
  	         ).isEqualTo(Status.OK);
 			}
  		});
@@ -129,7 +129,7 @@ public class CardsTest {
  			public void run() {
  	      	ObjectNode objectNode = objectMapper.createObjectNode();
  	         assertThat(
- 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + WRONG_ID).put(objectNode).get().getStatus()
+ 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + wrongProjectId).put(objectNode).get().getStatus()
  	         ).isEqualTo(Status.BAD_REQUEST);
  			}
  		});
@@ -145,7 +145,7 @@ public class CardsTest {
  			public void run() {
  	      	ObjectNode objectNode = objectMapper.createObjectNode();
  	         assertThat(
- 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + CORRECT_ID).put(objectNode).get().getStatus()
+ 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).put(objectNode).get().getStatus()
  	         ).isEqualTo(Status.BAD_REQUEST);
  			}
  		});
@@ -162,7 +162,7 @@ public class CardsTest {
 	      	ObjectNode objectNode = objectMapper.createObjectNode();
 				objectNode.put("status", Card.Status.BACKLOG.ordinal());	      	
 				assertThat(
- 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + CORRECT_ID).put(objectNode).get().getStatus()
+ 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).put(objectNode).get().getStatus()
  	         ).isEqualTo(Status.NO_CONTENT);
 			}
 		});
@@ -179,7 +179,7 @@ public class CardsTest {
  	      	ObjectNode objectNode = objectMapper.createObjectNode();
 				objectNode.put("status", Card.Status.IN_PROGRESS.ordinal());
  	         assertThat(
- 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + CORRECT_ID).put(objectNode).get().getStatus()
+ 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).put(objectNode).get().getStatus()
  	         ).isEqualTo(Status.OK);
 			}
  	  });
@@ -194,7 +194,7 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  			public void run() {
 				assertThat(
- 	           WS.url("http://localhost:" + PORT + "/api/cards/" + WRONG_ID).delete().get().getStatus()
+ 	           WS.url("http://localhost:" + PORT + "/api/cards/" + wrongProjectId).delete().get().getStatus()
  	         ).isEqualTo(Status.BAD_REQUEST);
 			}
  		});
@@ -209,7 +209,7 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  			public void run() {
  				assertThat(
- 					WS.url("http://localhost:" + PORT + "/api/cards/" + CORRECT_ID).delete().get().getStatus()
+ 					WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).delete().get().getStatus()
 				).isEqualTo(Status.OK);
  			}
  		});

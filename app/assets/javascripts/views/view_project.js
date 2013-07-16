@@ -4,7 +4,18 @@ App.Views.ViewProject = Backbone.View.extend({
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.model.toJSON()));
-		return this.$el;
+		
+		this.model.children.forEach(this.addOne, this);
+		
+		return this.$el.html();
+	},
+
+	addOne : function(card) {
+		var viewStoryView = new App.Views.ViewStory({ 
+			model : card 
+		});
+		this.$el.append(viewStoryView.render());
 	}
+
 
 });

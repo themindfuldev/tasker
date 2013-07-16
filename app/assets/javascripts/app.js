@@ -10,6 +10,13 @@ App = {
 		'issue': 3
 	},
 
+	StatusTypes: {
+		'backlog': 'BACKLOG',
+		'inProgress' : 'IN_PROGRESS',
+		'verify': 'VERIFY',
+		'signedOff' : 'SIGNED_OFF'
+	},
+
 	start : function() {
 		var appRouter = new App.Routers.App();
 		

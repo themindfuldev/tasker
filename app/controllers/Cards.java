@@ -6,6 +6,7 @@ import models.Card;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -19,6 +20,8 @@ import play.mvc.Result;
  * @see http://github.com/tiagorg
  */
 public class Cards extends Controller {
+
+	private static final String PARENT_ID = "parentId";
 
 	/**
 	 * Retrieves all projects and return OK (200) with the cards as JSON.
@@ -60,13 +63,27 @@ public class Cards extends Controller {
 	public static Result create() {
 		ObjectMapper mapper = new ObjectMapper();
 		Result result = null;
+		Card card = null;
 
 		try {
-			JsonNode jsonNode = request().body().asJson();
-			Card card = mapper.readValue(jsonNode, Card.class);
+			ObjectNode objectNode = (ObjectNode) request().body().asJson();
+
+			if (objectNode.has(PARENT_ID)) {				
+				Long parentId = objectNode.get(PARENT_ID).asLong();
+				Card parentCard = Card.byId(parentId);
+				objectNode.remove(PARENT_ID);
+
+				card = mapper.readValue(objectNode, Card.class);
+				card.setParent(parentCard);
+			}
+			else {
+				card = mapper.readValue(objectNode, Card.class);
+			}
+			
 			Card.create(card);
 			result = ok(Json.toJson(card));
 		} catch (Exception e) {
+			e.printStackTrace();
 			result = badRequest();
 		}
 		return result;

@@ -5,7 +5,9 @@ App.Views.ViewProject = Backbone.View.extend({
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.model.toJSON()));
 		
-		this.model.children.forEach(this.addOne, this);
+		if (this.model.children) {
+			this.model.children.forEach(this.addOne, this);
+		}
 		
 		return this.$el.html();
 	},

@@ -26,17 +26,18 @@ App.Views.NewCard = Backbone.View.extend({
 			title: this.$('input[name=title]').val(),
 			description: this.$('input[name=description]').val(),
 			assignee: this.$('input[name=assignee]').val(),
-			type: this.options.type
-			//parent_id: this.$('input[name=parent_id]').val()
+			type: this.options.type,
+			parentId: this.$('input[name=parent_id]').val()
 		};
 
 		model.save(data, {
 			success: function(model, response, options) {
+				App.Helpers.alert('Card ' + model.attributes.title + ' criado com sucesso!', 'success');
 				App.navigate('/');
 			},
 			
 			error: function(model, response, options) {
-			
+				App.Helpers.alert('Houve um erro ao criar o card!', 'error');
 			}
 		});
 	},

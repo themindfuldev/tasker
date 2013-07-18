@@ -53,7 +53,7 @@ public class Card extends Model {
 
 	@Column(nullable = false)
 	private Date modifiedDate;
-
+	
 	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Card parent;
 	
@@ -63,8 +63,13 @@ public class Card extends Model {
 	/*
 	 * Getters and setters
 	 */
+
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Type getType() {
@@ -111,14 +116,18 @@ public class Card extends Model {
 		return createdDate;
 	}
 
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public Date getModifiedDate() {
 		return modifiedDate;
 	}
 
-	public List<Card> getChildren() {
-		return children;
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
-
+	
 	public Card getParent() {
 		return parent;
 	}
@@ -127,6 +136,14 @@ public class Card extends Model {
 		this.parent = parent;
 	}
 
+	public List<Card> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Card> children) {
+		this.children = children;
+	}
+	
 	/*
 	 * Persistence
 	 */
@@ -151,6 +168,17 @@ public class Card extends Model {
 	 */
 	public static Card byId(Long id) {
 		return find.byId(id);
+	}
+	
+	/**
+	 * Retrieves the reference for a particular card.
+	 * 
+	 * @param id
+	 *           the card id
+	 * @return the card
+	 */
+	public static Card ref(Long id) {
+		return find.ref(id);
 	}
 
 	/**

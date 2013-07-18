@@ -9,6 +9,7 @@ underscore.min.js
 backbone.min.js
 handlebars.min.js
 bootstrap.min.js
+moment.min.js
 app.js
 lib
 models

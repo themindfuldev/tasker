@@ -5,11 +5,13 @@ App.Views.ViewStory = Backbone.View.extend({
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.model.toJSON()));
 		
-		for (status in App.StatusTypes) {
-			this.lanes[status] = $el.find('story_' + this.model.id + '_issues_' + status);
+		if (this.model.children) {
+			App.StatusTypes.forEach(function(status) {
+				this.lanes[status] = $el.find('story_' + this.model.id + '_issues_' + status);
+			});
+
+			this.model.children.forEach(this.addOne, this);
 		}
-		
-		this.model.children.forEach(this.addOne, this);
 		
 		return this.$el.html();
 	},

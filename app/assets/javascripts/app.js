@@ -5,9 +5,9 @@ App = {
 	Routers : {},
 	
 	CardTypes: {
-		'project': 1,
-		'story': 2,
-		'issue': 3
+		'project': 0,
+		'story': 1,
+		'issue': 2
 	},
 
 	StatusTypes: {

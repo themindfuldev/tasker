@@ -9,6 +9,7 @@ import models.Card;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,7 +28,8 @@ public class CardsTest {
 	
 	private static final short PORT = 3333;
 	private static Long correctProjectId;
-	private static Long wrongProjectId = -1L;
+	private static Long correctStoryId;
+	private static Long wrongId = -1L;
 	
 	private ObjectMapper objectMapper;
 	
@@ -59,7 +61,8 @@ public class CardsTest {
  	@Order(order=2)
  	public void testCreateSuccess() {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
- 			public void run() {
+			public void run() {
+ 				// Create parent card
  	      	ObjectNode objectNode = objectMapper.createObjectNode();
 				objectNode.put("type", Card.Type.PROJECT.ordinal());
  	      	objectNode.put("title", "test");
@@ -69,12 +72,24 @@ public class CardsTest {
  	      	Response response = WS.url("http://localhost:" + PORT + "/api/cards").post(objectNode).get();
  	         assertThat(response.getStatus()).isEqualTo(Status.OK);
  	         correctProjectId = response.asJson().get("id").asLong(); 	         
+
+ 	         // Create children card
+ 	         objectNode = objectMapper.createObjectNode();
+				objectNode.put("type", Card.Type.STORY.ordinal());
+ 	      	objectNode.put("title", "test from test");
+ 	      	objectNode.put("description", "test story");
+ 	      	objectNode.put("assignee", "tester");
+ 	      	//objectNode.put("parentId", correctProjectId);
+ 	      	
+ 	      	response = WS.url("http://localhost:" + PORT + "/api/cards").post(objectNode).get();
+ 	         assertThat(response.getStatus()).isEqualTo(Status.OK);
+ 	         correctStoryId = response.asJson().get("id").asLong(); 	          			
  			}
 	  });
 	}
  	
  	/**
- 	 * Tests action Get, failure scenario.
+ 	 * Tests action get, failure scenario.
  	 */
  	@Test
  	@Order(order=3)
@@ -82,14 +97,14 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  	      public void run() {
 				assertThat(
- 	           WS.url("http://localhost:" + PORT + "/api/cards/" + wrongProjectId).get().get().getStatus()
+					WS.url("http://localhost:" + PORT + "/api/cards/" + wrongId).get().get().getStatus()
  	         ).isEqualTo(Status.NOT_FOUND);
 			}
  		});
  	}
 
  	/**
- 	 * Tests action Get, successful scenario.
+ 	 * Tests action get, successful scenario.
  	 */
  	@Test
  	@Order(order=4)
@@ -97,18 +112,18 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  	      public void run() {
 				assertThat(
- 	           WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).get().get().getStatus()
+					WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).get().get().getStatus()
  	         ).isEqualTo(Status.OK);
-			}
+ 	      }
  		});
  	}
 
  	/**
- 	 * Tests action Get All, successful scenario.
+ 	 * Tests action get all Projects, successful scenario.
  	 */
  	@Test
  	@Order(order=5)
- 	public void testGetAll() {
+ 	public void testGetAllProjects() {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  	      public void run() {
  	      	Response response = WS.url("http://localhost:" + PORT + "/api/cards").get().get();
@@ -129,7 +144,7 @@ public class CardsTest {
  			public void run() {
  	      	ObjectNode objectNode = objectMapper.createObjectNode();
  	         assertThat(
- 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + wrongProjectId).put(objectNode).get().getStatus()
+ 	         	WS.url("http://localhost:" + PORT + "/api/cards/" + wrongId).put(objectNode).get().getStatus()
  	         ).isEqualTo(Status.BAD_REQUEST);
  			}
  		});
@@ -194,7 +209,7 @@ public class CardsTest {
  		running(testServer(PORT, fakeApplication()), new Runnable() {
  			public void run() {
 				assertThat(
- 	           WS.url("http://localhost:" + PORT + "/api/cards/" + wrongProjectId).delete().get().getStatus()
+ 	           WS.url("http://localhost:" + PORT + "/api/cards/" + wrongId).delete().get().getStatus()
  	         ).isEqualTo(Status.BAD_REQUEST);
 			}
  		});
@@ -211,6 +226,12 @@ public class CardsTest {
  				assertThat(
  					WS.url("http://localhost:" + PORT + "/api/cards/" + correctProjectId).delete().get().getStatus()
 				).isEqualTo(Status.OK);
+ 				
+ 				// Testing cascade
+				//assertThat(
+				//	WS.url("http://localhost:" + PORT + "/api/cards/" + correctStoryId).get().get().getStatus()
+ 	         //).isEqualTo(Status.BAD_REQUEST);
+
  			}
  		});
  	}

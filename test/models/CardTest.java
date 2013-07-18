@@ -59,6 +59,7 @@ public class CardTest {
 				assertThat(projectId).isNotNull();
 				assertThat(projectCard.getCreatedDate()).isNotNull();
 				assertThat(projectCard.getModifiedDate()).isNotNull();
+				assertThat(projectCard.getParent()).isNull();
 				
 				// Create children card
 				Card storyCard = new Card();
@@ -69,10 +70,11 @@ public class CardTest {
 				storyCard.setParent(projectCard);
 				Card.create(storyCard);
 				
-				storyId = projectCard.getId();
+				storyId = storyCard.getId();
 				assertThat(storyId).isNotNull();
-				assertThat(projectCard.getCreatedDate()).isNotNull();
-				assertThat(projectCard.getModifiedDate()).isNotNull();
+				assertThat(storyCard.getCreatedDate()).isNotNull();
+				assertThat(storyCard.getModifiedDate()).isNotNull();
+				assertThat(storyCard.getParent()).isNotNull();
 			}
 		});
 	}
@@ -132,9 +134,13 @@ public class CardTest {
 	public void testDeleteCard() {
 		running(fakeApplication(), new Runnable() {
 			public void run() {
-				Card.delete(projectId);				
-				Card card = Card.byId(projectId);
-				assertThat(card).isNull();
+				Card.delete(projectId);
+				
+				Card projectCard = Card.byId(projectId);
+				assertThat(projectCard).isNull();
+				
+				Card storyCard = Card.byId(storyId);
+				assertThat(storyCard).isNull();
 			}
 		});
 	}

@@ -33,13 +33,10 @@ App.Alert = {
 			currentAlerts.fadeOut({
 				complete: function() {
 					$('section#alert > div').remove();
-					App.appRouter.trigger('readyToAlert', [callback]);
 				}
 			});
 		}
-		else {
-			App.appRouter.trigger('readyToAlert', [callback]);
-		}
+		App.appRouter.trigger('readyToAlert', [callback]);
 	},
 	
 	renderTriggeredAlerts : function() {

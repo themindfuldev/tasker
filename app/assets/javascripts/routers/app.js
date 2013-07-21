@@ -156,8 +156,8 @@ App.Routers.App = Backbone.Router.extend({
 		if (previousView) {
 			previousView.$el.fadeOut({
 				complete : function() {
-					previousView.remove();
 					self.trigger('readyToRender');
+					previousView.remove();
 				}
 			});
 		}

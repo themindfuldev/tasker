@@ -46,5 +46,4 @@ App.Alert = {
 			this.renderAlert(alertView);
 		}
 	}
-
-}
+};

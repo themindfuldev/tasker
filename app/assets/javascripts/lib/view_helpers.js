@@ -5,4 +5,4 @@ App.Helpers = {
 
 		$(selector).html(loadingTemplate());
 	}
-}
+};

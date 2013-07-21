@@ -34,7 +34,9 @@ App = new (Backbone.View.extend({
 	events : {
 		'click a[data-internal]' : function(event) {
 			event.preventDefault();
-			this.appRouter.navigate(event.currentTarget.pathname, { trigger : true });
+			this.appRouter.navigate(event.currentTarget.pathname, {
+				trigger : true
+			});
 		}
 	},
 
@@ -45,7 +47,7 @@ App = new (Backbone.View.extend({
 
 	start : function() {
 		this.appRouter = new App.Routers.App();
-		
+
 		// Starting backbone history
 		Backbone.history.start({
 			pushState : true
@@ -58,4 +60,4 @@ App = new (Backbone.View.extend({
 $(function() {
 	App.render();
 	App.start();
-})
+});

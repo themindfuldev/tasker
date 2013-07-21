@@ -14,9 +14,9 @@ App.Helpers = {
 		alertView.$el.fadeIn();
 	},
 	
-	showLoading: function(element) {
+	showLoading: function(selector) {
 		var loadingTemplate = HandlebarsCompiler.get('loading');
 
-		element.html(loadingTemplate());
+		$(selector).html(loadingTemplate());
 	}
 }

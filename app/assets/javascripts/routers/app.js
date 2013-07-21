@@ -15,6 +15,8 @@ App.Routers.App = Backbone.Router.extend({
 	viewAll : function() {
 		var self = this,
 			cardCollection = new App.Collections.Cards();
+	
+		App.Helpers.showLoading('section#contents');
 		
 		cardCollection.fetch({
 			success: function(collection, response, options) {
@@ -22,20 +24,20 @@ App.Routers.App = Backbone.Router.extend({
 						collection: collection
 					});
 				
-				self.render(view);
+					self.render(view);
 			},
 			error : function(collection, response, options) {
-				App.Helpers.alert('Não foi possível obter os projetos.', 'error');
+				App.Helpers.alert('Não foi possível obter os projetos.', App.AlertTypes.error);
 			}
 		});
 	},
 
 	viewCard : function(id) {
 		var self = this,
-			cardModel = new App.Model.Card({
+			cardModel = new App.Models.Card({
 				id: id
 			});
-		
+				
 		cardModel.fetch({
 			success: function(model, response, options) {
 				var view = new App.Views.ViewCard({
@@ -45,7 +47,7 @@ App.Routers.App = Backbone.Router.extend({
 				self.render(view);
 			},
 			error : function(collection, response, options) {
-				console.log('Could not fetch card with id ' + id);
+				App.Helpers.alert('Não foi possível obter o card com id = ' + id + '.', App.AlertTypes.error);
 			}
 		});
 	},
@@ -90,8 +92,10 @@ App.Routers.App = Backbone.Router.extend({
 		// Rendering new view
 		this.currentView.render();		
 		$('section#contents').html(this.currentView.el);
-		
-		this.currentView.$el.slideDown();
+
+		if (this.currentView.$el.contents().length > 0) {
+			this.currentView.$el.slideDown();
+		}
 
 		console.log('Rendered ' + view.name); 						
 	},

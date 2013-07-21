@@ -3,36 +3,42 @@ App = {
 	Views : {},
 	Collections : {},
 	Routers : {},
-	
-	CardTypes: {
-		'project': 0,
-		'story': 1,
-		'issue': 2
+
+	CardTypes : {
+		'project' : 0,
+		'story' : 1,
+		'issue' : 2
 	},
 
-	StatusTypes: {
-		'backlog': 'BACKLOG',
+	StatusTypes : {
+		'backlog' : 'BACKLOG',
 		'inProgress' : 'IN_PROGRESS',
-		'verify': 'VERIFY',
+		'verify' : 'VERIFY',
 		'signedOff' : 'SIGNED_OFF'
+	},
+
+	AlertTypes : {
+		'success' : 'success',
+		'error' : 'error',
+		'info' : 'info'
 	},
 
 	start : function() {
 		var appRouter = new App.Routers.App();
-		
+
 		// Creating navigate method
 		this.navigate = function(target) {
 			appRouter.navigate(target, {
 				trigger : true
-			});			
+			});
 		};
-		
+
 		// Setting up links to routing
 		$('body').on('click', 'a[data-internal]', function(e) {
 			e.preventDefault();
 			App.navigate(e.currentTarget.pathname);
 		});
-		
+
 		// Starting backbone history
 		Backbone.history.start({
 			pushState : true
@@ -40,6 +46,6 @@ App = {
 	}
 }
 
-$(function() {	
+$(function() {
 	App.start();
 })

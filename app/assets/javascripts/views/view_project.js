@@ -2,18 +2,16 @@ App.Views.ViewProject = Backbone.View.extend({
 	name: 'view_project',
 	
 	events : {
-		'click a[data-action=delete]': 'remove'
+		'click a[data-action=delete]': 'removeProject'
 	},
 	
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.model.toJSON()));
 		
-		if (this.model.children) {
-			this.model.children.forEach(this.addOne, this);
+		if (this.model.attributes.children) {
+			this.model.attributes.children.forEach(this.addOne, this);
 		}
-		
-		return this.$el.html();
 	},
 
 	addOne : function(card) {
@@ -23,7 +21,7 @@ App.Views.ViewProject = Backbone.View.extend({
 		this.$el.append(viewStoryView.render());
 	},
 	
-	remove : function() {
+	removeProject : function() {
 		this.model.remove({
 			success: function(model, response, options) {
 				App.Helpers.alert('Card ' + model.attributes.title + ' removido com sucesso!', 'success');

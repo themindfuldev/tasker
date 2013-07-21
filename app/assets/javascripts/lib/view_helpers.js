@@ -1,11 +1,22 @@
 App.Helpers = {
+	// Alert types are: error, success, info (or nothing)
 	alert: function(message, type) {
-		var alertTemplate = HandlebarsCompiler.get('alert'),
-			model = {
+		var alertModel = new App.Models.Alert({
 				message: message,
-				type: type
-			};
+				type: type			
+			}),
+			alertView = new App.Views.Alert({
+				model: alertModel
+			});
 		
-		$('#alert').append(alertTemplate(model));
+		alertView.render();
+		$('section#alert').append(alertView.el);
+		alertView.$el.fadeIn();
+	},
+	
+	showLoading: function(element) {
+		var loadingTemplate = HandlebarsCompiler.get('loading');
+
+		element.html(loadingTemplate());
 	}
 }

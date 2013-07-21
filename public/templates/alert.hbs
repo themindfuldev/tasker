@@ -1,4 +1,5 @@
-<div class="alert alert-{{type}}">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	{{message}}
-</div>
+<button type="button" class="close"><i class="icon-remove"></i></button>
+{{#ifequals type "success"}}<i class="icon-ok-sign"></i>{{/ifequals}}
+{{#ifequals type "error"}}<i class="icon-remove-sign"></i>{{/ifequals}}
+{{#ifequals type "info"}}<i class="icon-exclamation-sign"></i>{{/ifequals}}
+{{message}}

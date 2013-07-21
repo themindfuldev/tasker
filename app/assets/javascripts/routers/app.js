@@ -19,14 +19,13 @@ App.Routers.App = Backbone.Router.extend({
 		cardCollection.fetch({
 			success: function(collection, response, options) {
 				var view = new App.Views.ViewAll({
-						collection: collection,
-						el: $('section#contents')
+						collection: collection
 					});
 				
 				self.render(view);
 			},
 			error : function(collection, response, options) {
-				console.log('Could not fetch cards collection');
+				App.Helpers.alert('Não foi possível obter os projetos.', 'error');
 			}
 		});
 	},
@@ -40,8 +39,7 @@ App.Routers.App = Backbone.Router.extend({
 		cardModel.fetch({
 			success: function(model, response, options) {
 				var view = new App.Views.ViewCard({
-						model: model,
-						el: $('section#overlay')
+						model: model						
 					});
 				
 				self.render(view);
@@ -54,8 +52,7 @@ App.Routers.App = Backbone.Router.extend({
 
 	newProject : function() {
 		var view = new App.Views.NewCard({
-				type: App.CardTypes.project,
-				el: $('section#overlay')
+				type: App.CardTypes.project
 			});
 		
 		this.render(view);
@@ -64,8 +61,7 @@ App.Routers.App = Backbone.Router.extend({
 	newStory : function(id) {
 		var view = new App.Views.NewCard({
 				type: App.CardTypes.story,
-				id: id,
-				el: $('section#overlay')
+				id: id
 			});
 		
 		this.render(view);
@@ -74,26 +70,34 @@ App.Routers.App = Backbone.Router.extend({
 	newIssue : function(id) {
 		var view = new App.Views.NewCard({
 				type: App.CardTypes.issue,
-				id: id,
-				el: $('section#overlay')
+				id: id				
 			});
 		
 		this.render(view);
 	},
 
 	render: function(view) {
+		// Removing previous view
 		if (this.currentView) {
-			if (this.currentView.collapse) {
-				this.currentView.collapse();
-			}
-			this.currentView.stopListening();
+			this.currentView.$el.slideDown();
+			this.currentView.remove();
 		} 
-		this.currentView = view;
 		
-		$("ul#menu li").removeClass('active');
-		$("li#menu_" + view.name).addClass('active');
-		view.render();
+		// Adding new view
+		this.currentView = view;
+		this.highlightNavbar();
+		
+		// Rendering new view
+		this.currentView.render();		
+		$('section#contents').html(this.currentView.el);
+		
+		this.currentView.$el.slideDown();
 
 		console.log('Rendered ' + view.name); 						
+	},
+	
+	highlightNavbar: function() {
+		$("ul#menu li").removeClass('active');
+		$("li#menu_" + this.currentView.name).addClass('active');
 	}
 });

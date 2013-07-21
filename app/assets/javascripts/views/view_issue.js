@@ -4,6 +4,5 @@ App.Views.ViewIssue = Backbone.View.extend({
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.model.toJSON()));
-		return this.$el.html();
 	}
 });

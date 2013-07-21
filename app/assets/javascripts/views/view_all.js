@@ -1,9 +1,14 @@
 App.Views.ViewAll = Backbone.View.extend({
 	name: 'view_all',
+	className: 'start-collapsed',
 	
 	render : function() {
-		this.$el.html('');
-		this.collection.forEach(this.addOne, this);
+		if (this.collection.size > 0) {
+			this.collection.forEach(this.addOne, this);
+		}
+		else {
+			App.Helpers.alert('Não há projetos.', 'info');
+		}
 	},
 
 	addOne : function(card) {

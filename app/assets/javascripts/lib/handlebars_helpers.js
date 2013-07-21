@@ -45,3 +45,21 @@ Handlebars.registerHelper('formatDate', function(date, outputPattern, inputPatte
     }
     return momentDate.format(outputPattern);
 });
+
+/**
+ * This helper provides a if comparing two values
+ *
+ * If only the two values are strictly equals ('===') display the block
+ *
+ * Usage:
+ *        {{#ifequals type "details"}}
+ *            <span>This is details page</span>
+ *        {{/ifequals}}
+ */
+Handlebars.registerHelper('ifequals', function(value1, value2, options) {
+    if (value1 === value2) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});

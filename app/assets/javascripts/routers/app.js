@@ -14,6 +14,7 @@ App.Routers.App = Backbone.Router.extend({
 			}
 			else {
 				self.isReadyToRender = true;
+				App.Helpers.showLoading('section#contents');			
 			}
 		});
 
@@ -37,20 +38,19 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	before : function(route, params) {
-		var handler = this.routes[route],
-			previousView = this.currentView,
-			self = this;
+		var self = this,
+			handler = this.routes[route],
+			previousView = this.currentView;			
 		
 		console.log('Navigated to ' + handler + ' route.');
+
+		App.Helpers.Alert.renewAlerts();
 		
 		if (previousView) {
-			App.Helpers.dismissAlerts();
-
 			previousView.$el.fadeOut({
 				complete : function() {
 					previousView.remove();
 					self.trigger('readyToRender');
-					//App.Helpers.showLoading('section#contents');
 				}
 			});
 		}
@@ -60,7 +60,8 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	viewAll : function() {
-		var self = this, cardCollection = new App.Collections.Cards();
+		var self = this, 
+			cardCollection = new App.Collections.Cards();
 
 		cardCollection.fetch({
 			success : function(collection, response, options) {
@@ -71,16 +72,19 @@ App.Routers.App = Backbone.Router.extend({
 				self.trigger('render', [view]);
 			},
 			error : function(collection, response, options) {
-				App.Helpers.alert('Não foi possível obter os projetos.',
-						App.AlertTypes.error);
+				App.Helpers.Alert.alert({
+					message : 'Não foi possível obter os projetos.',
+					type : App.AlertTypes.error
+				});
 			}
 		});
 	},
 
 	viewCard : function(id) {
-		var self = this, cardModel = new App.Models.Card({
-			id : id
-		});
+		var self = this, 
+			cardModel = new App.Models.Card({
+				id : id
+			});
 
 		cardModel.fetch({
 			success : function(model, response, options) {
@@ -91,8 +95,10 @@ App.Routers.App = Backbone.Router.extend({
 				self.trigger('render', [view]);
 			},
 			error : function(collection, response, options) {
-				App.Helpers.alert('Não foi possível obter o card com id = '
-						+ id + '.', App.AlertTypes.error);
+				App.Helpers.Alert.alert({
+					message : 'Não foi possível obter o card com id = ' + id + '.', 
+					type : App.AlertTypes.error
+				});
 			}
 		});
 	},

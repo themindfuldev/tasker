@@ -22,13 +22,21 @@ App.Views.ViewProject = Backbone.View.extend({
 	},
 	
 	removeProject : function() {
-		this.model.remove({
-			success: function(model, response, options) {
-				App.Helpers.alert('Card ' + model.attributes.title + ' removido com sucesso!', 'success');
+		this.model.destroy({
+			success: function(model) {
+				App.Helpers.Alert.alert({
+					message: 'Projeto ' + model.attributes.title + ' removido com sucesso!',
+					type: App.AlertTypes.success,
+					trigger: true
+				});
+				Backbone.history.loadUrl(Backbone.history.fragment);
 			},
 			
-			error: function(model, response, options) {
-				App.Helpers.alert('Houve um erro ao remover o card!', 'error');
+			error: function(model) {
+				App.Helpers.Alert.alert({
+					message : 'Houve um erro ao remover o projeto ' + model.attributes.title + '.', 
+					type: App.AlertTypes.error
+				});
 			}
 		});
 	}

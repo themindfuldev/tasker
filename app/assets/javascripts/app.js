@@ -22,6 +22,8 @@ App = {
 		'error' : 'error',
 		'info' : 'info'
 	},
+	
+	alertQueue : [],
 
 	start : function() {
 		var appRouter = new App.Routers.App();

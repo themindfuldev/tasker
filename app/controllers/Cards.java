@@ -134,7 +134,7 @@ public class Cards extends Controller {
 
 		try {
 			Card.delete(id);
-			result = ok();
+			result = ok(Json.toJson(id));
 		} catch (Exception e) {
 			result = badRequest();
 		}

@@ -1,21 +1,26 @@
 App.Views.ViewAll = Backbone.View.extend({
-	name: 'view_all',
-	className: 'start-collapsed',
-	
+	name : 'view_all',
+	className : 'start-collapsed',
+
 	render : function() {
-		if (this.collection.size > 0) {
+		if (this.collection.length > 0) {
+			this.elFragment = document.createDocumentFragment();
 			this.collection.forEach(this.addOne, this);
-		}
-		else {
-			App.Helpers.alert('Não há projetos.', App.AlertTypes.info);
+			this.$el.append(this.elFragment);
+		} else {
+			App.Helpers.Alert.alert({
+				message : 'Não há projetos.',
+				type : App.AlertTypes.info
+			});
 		}
 	},
 
 	addOne : function(card) {
-		var viewProjectView = new App.Views.ViewProject({ 
-			model : card 
+		var viewProjectView = new App.Views.ViewProject({
+			model : card
 		});
-		this.$el.append(viewProjectView.render());
+		viewProjectView.render();
+		$(this.elFragment).append(viewProjectView.el);
 	}
 
 });

@@ -1,5 +1,5 @@
 App.Helpers = {
-	// Alert types are: error, success, info (or nothing)
+	// Alert types are described in App.AlertTypes
 	alert: function(message, type) {
 		var alertModel = new App.Models.Alert({
 				message: message,
@@ -14,6 +14,10 @@ App.Helpers = {
 		alertView.$el.fadeIn();
 	},
 	
+	dismissAlerts: function() {
+		$('section#alert > div > button.close').click();
+	},
+
 	showLoading: function(selector) {
 		var loadingTemplate = HandlebarsCompiler.get('loading');
 

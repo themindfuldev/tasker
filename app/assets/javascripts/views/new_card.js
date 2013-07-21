@@ -1,5 +1,6 @@
 App.Views.NewCard = Backbone.View.extend({
 	name : 'new_card',
+	className: 'start-collapsed',
 	
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);
@@ -11,10 +12,10 @@ App.Views.NewCard = Backbone.View.extend({
 	  'click input#cancel_button': 'cancel'
 	},
 	
-	save: function(e) {
+	save: function(event) {
 		var model, data;
 		
-		e.preventDefault();
+		event.preventDefault();
 
 		model = new App.Models.Card();
 		data = {
@@ -37,7 +38,9 @@ App.Views.NewCard = Backbone.View.extend({
 		});
 	},
 	
-	cancel: function(e) {
+	cancel: function(event) {
+		event.preventDefault();
+		
 		App.navigate('/');
 	}
 });

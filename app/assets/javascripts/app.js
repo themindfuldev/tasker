@@ -34,9 +34,9 @@ App = {
 		};
 
 		// Setting up links to routing
-		$('body').on('click', 'a[data-internal]', function(e) {
-			e.preventDefault();
-			App.navigate(e.currentTarget.pathname);
+		$('body').on('click', 'a[data-internal]', function(event) {
+			event.preventDefault();
+			App.navigate(event.currentTarget.pathname);
 		});
 
 		// Starting backbone history

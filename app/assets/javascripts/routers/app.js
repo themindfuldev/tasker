@@ -7,28 +7,9 @@ App.Routers.App = Backbone.Router.extend({
 		this.route(/^card\/(\d+)\/new-story$/, 'newStory');
 		this.route(/^card\/(\d+)\/new-issue$/, 'newIssue');
 		
-		this.on('readyToRender', function(event) {
-			if (self.nextView) {
-				self.render(self.nextView);
-				delete self.nextView;
-			}
-			else {
-				self.isReadyToRender = true;
-				App.Helpers.showLoading('section#contents');			
-			}
-		});
-
-		this.on('render', function(parameters) {
-			var view = parameters[0];
-			
-			if (self.isReadyToRender) {
-				self.render(view);
-				delete self.isReadyToRender;
-			}
-			else {
-				self.nextView = view;
-			}
-		});
+		this.on('readyToRender', this.readyToRenderEvent);
+		this.on('render', this.renderEvent);
+		this.on('readyToAlert', this.dismissPreviousViewEvent);
 	},
 
 	routes : {
@@ -38,29 +19,19 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	before : function(route, params) {
-		var self = this,
-			handler = this.routes[route],
-			previousView = this.currentView;			
-		
+		var handler = this.routes[route];
 		console.log('Navigated to ' + handler + ' route.');
-
-		App.Helpers.Alert.renewAlerts();
 		
-		if (previousView) {
-			previousView.$el.fadeOut({
-				complete : function() {
-					previousView.remove();
-					self.trigger('readyToRender');
-				}
-			});
-		}
-		else {
-			this.trigger('readyToRender');
-		}
-	},
+		this.isReadyToRender = false;
 
+		App.Alert.dismissAlerts(this.dismissPreviousView);
+	},
+	
+	/*
+	 * Routing functions
+	 */
 	viewAll : function() {
-		var self = this, 
+		var self = this,
 			cardCollection = new App.Collections.Cards();
 
 		cardCollection.fetch({
@@ -72,7 +43,7 @@ App.Routers.App = Backbone.Router.extend({
 				self.trigger('render', [view]);
 			},
 			error : function(collection, response, options) {
-				App.Helpers.Alert.alert({
+				App.Alert.alert({
 					message : 'Não foi possível obter os projetos.',
 					type : App.AlertTypes.error
 				});
@@ -81,7 +52,7 @@ App.Routers.App = Backbone.Router.extend({
 	},
 
 	viewCard : function(id) {
-		var self = this, 
+		var self = this,
 			cardModel = new App.Models.Card({
 				id : id
 			});
@@ -95,7 +66,7 @@ App.Routers.App = Backbone.Router.extend({
 				self.trigger('render', [view]);
 			},
 			error : function(collection, response, options) {
-				App.Helpers.Alert.alert({
+				App.Alert.alert({
 					message : 'Não foi possível obter o card com id = ' + id + '.', 
 					type : App.AlertTypes.error
 				});
@@ -128,7 +99,10 @@ App.Routers.App = Backbone.Router.extend({
 
 		this.trigger('render', [view]);
 	},
-
+	
+	/*
+	 * Renderization functions
+	 */
 	render : function(view) {
 		this.currentView = view;
 		
@@ -145,5 +119,51 @@ App.Routers.App = Backbone.Router.extend({
 	highlightNavbar : function() {
 		$("ul#menu li").removeClass('active');
 		$("li#menu_" + this.currentView.name).addClass('active');
+	},
+	
+	/*
+	 * Events
+	 */
+	readyToRenderEvent : function(event) {
+		App.Alert.renderTriggeredAlerts();
+		
+		if (this.nextView) {
+			this.render(this.nextView);
+			delete self.nextView;
+		}
+		else {
+			this.isReadyToRender = true;
+			App.Helpers.showLoading('section#contents');			
+		}
+	},
+	
+	renderEvent : function(parameters) {
+		var view = parameters[0];
+		
+		if (this.isReadyToRender) {
+			this.render(view);
+			delete self.isReadyToRender;
+		}
+		else {
+			this.nextView = view;
+		}
+	},
+	
+	dismissPreviousViewEvent : function() {
+		var self = this,
+			previousView = this.currentView;
+		
+		if (previousView) {
+			previousView.$el.fadeOut({
+				complete : function() {
+					previousView.remove();
+					self.trigger('readyToRender');
+				}
+			});
+		}
+		else {
+			self.trigger('readyToRender');
+		}
 	}
+
 });

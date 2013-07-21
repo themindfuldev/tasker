@@ -24,7 +24,7 @@ App.Views.ViewProject = Backbone.View.extend({
 	removeProject : function() {
 		this.model.destroy({
 			success: function(model) {
-				App.Helpers.Alert.alert({
+				App.Alert.alert({
 					message: 'Projeto ' + model.attributes.title + ' removido com sucesso!',
 					type: App.AlertTypes.success,
 					trigger: true
@@ -33,7 +33,7 @@ App.Views.ViewProject = Backbone.View.extend({
 			},
 			
 			error: function(model) {
-				App.Helpers.Alert.alert({
+				App.Alert.alert({
 					message : 'Houve um erro ao remover o projeto ' + model.attributes.title + '.', 
 					type: App.AlertTypes.error
 				});

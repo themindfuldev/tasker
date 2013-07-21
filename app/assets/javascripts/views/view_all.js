@@ -8,7 +8,7 @@ App.Views.ViewAll = Backbone.View.extend({
 			this.collection.forEach(this.addOne, this);
 			this.$el.append(this.elFragment);
 		} else {
-			App.Helpers.Alert.alert({
+			App.Alert.alert({
 				message : 'Não há projetos.',
 				type : App.AlertTypes.info
 			});

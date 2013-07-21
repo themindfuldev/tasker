@@ -1,4 +1,7 @@
-App = {
+App = new (Backbone.View.extend({
+	/*
+	 * App definitions
+	 */
 	Models : {},
 	Views : {},
 	Collections : {},
@@ -22,32 +25,37 @@ App = {
 		'error' : 'error',
 		'info' : 'info'
 	},
-	
-	alertQueue : [],
+
+	/*
+	 * App view setup
+	 */
+	name : 'app',
+
+	events : {
+		'click a[data-internal]' : function(event) {
+			event.preventDefault();
+			this.appRouter.navigate(event.currentTarget.pathname, { trigger : true });
+		}
+	},
+
+	render : function() {
+		var template = HandlebarsCompiler.get(this.name);
+		this.$el.html(template());
+	},
 
 	start : function() {
-		var appRouter = new App.Routers.App();
-
-		// Creating navigate method
-		this.navigate = function(target) {
-			appRouter.navigate(target, {
-				trigger : true
-			});
-		};
-
-		// Setting up links to routing
-		$('body').on('click', 'a[data-internal]', function(event) {
-			event.preventDefault();
-			App.navigate(event.currentTarget.pathname);
-		});
-
+		this.appRouter = new App.Routers.App();
+		
 		// Starting backbone history
 		Backbone.history.start({
 			pushState : true
 		});
 	}
-}
+}))({
+	el : document.body
+});
 
 $(function() {
+	App.render();
 	App.start();
 })

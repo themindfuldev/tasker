@@ -41,8 +41,13 @@ App = new (Backbone.View.extend({
 	},
 
 	render : function() {
-		var template = HandlebarsCompiler.get(this.name);
-		this.$el.html(template());
+		var appTemplate = HandlebarsCompiler.get(this.name);
+		this.$el.html(appTemplate());
+
+		this.menuView = new App.Views.Menu({
+			el: $('ul#menu')
+		});
+		this.menuView.render();
 	},
 
 	start : function() {

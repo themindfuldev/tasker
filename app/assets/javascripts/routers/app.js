@@ -76,7 +76,8 @@ App.Routers.App = Backbone.Router.extend({
 
 	newProject : function() {
 		var view = new App.Views.NewCard({
-			type : App.CardTypes.project
+			type : App.CardTypes.project,
+			menuItemId: 'new_project'
 		});
 
 		this.trigger('render', [view]);
@@ -85,7 +86,9 @@ App.Routers.App = Backbone.Router.extend({
 	newStory : function(id) {
 		var view = new App.Views.NewCard({
 			type : App.CardTypes.story,
-			id : id
+			id : id,
+			title: 'Nova estória',
+			menuItemId: 'new_story'
 		});
 
 		this.trigger('render', [view]);
@@ -94,7 +97,9 @@ App.Routers.App = Backbone.Router.extend({
 	newIssue : function(id) {
 		var view = new App.Views.NewCard({
 			type : App.CardTypes.issue,
-			id : id
+			id : id,
+			title : 'Nova issue',
+			menuItemId: 'new_issue'
 		});
 
 		this.trigger('render', [view]);
@@ -106,7 +111,7 @@ App.Routers.App = Backbone.Router.extend({
 	render : function(view) {
 		this.currentView = view;
 		
-		this.highlightNavbar();
+		this.selectMenu();
 
 		// Rendering new view
 		this.currentView.render();
@@ -116,9 +121,43 @@ App.Routers.App = Backbone.Router.extend({
 		console.log('Rendered ' + this.currentView.name + ' view.');
 	},
 
-	highlightNavbar : function() {
-		$("ul#menu li").removeClass('active');
-		$("li#menu_" + this.currentView.name).addClass('active');
+	selectMenu : function() {
+		var menuItemId;
+		
+		// Re-render menu
+		App.menuView.render();
+		
+		if (this.currentView.name === 'view_all') {
+			menuItemId = this.currentView.name;
+		}
+		else if (this.currentView instanceof App.Views.NewCard){
+			menuItemId = this.populateNewCardMenuItem(this.currentView);
+		}
+		
+		if (menuItemId) {
+			$("ul#menu li.active").removeClass('active');
+			$("li#menu_" + menuItemId).addClass('active');
+		}
+	},
+	
+	populateNewCardMenuItem : function(view) {
+		var menuItemModel, menuItemView;
+		
+		if (this.currentView.options.type !== App.CardTypes.project) {
+			menuItemModel = new App.Models.MenuItem({
+				name : this.currentView.options.menuItemId,
+				url : '/' + Backbone.history.fragment,
+				title : this.currentView.options.title
+			}), 
+			menuItemView = new App.Views.MenuItem({
+				model : menuItemModel
+			});
+			
+			menuItemView.render();
+			$('ul#menu').append(menuItemView.el);
+		}
+		
+		return this.currentView.options.menuItemId;
 	},
 	
 	/*

@@ -13,7 +13,7 @@ App.Views.NewCard = Backbone.View.extend({
 	},
 
 	save : function(event) {
-		var model, data;
+		var model, data, parentId;
 
 		event.preventDefault();
 
@@ -23,9 +23,9 @@ App.Views.NewCard = Backbone.View.extend({
 			description : this.$('input[name=description]').val(),
 			assignee : this.$('input[name=assignee]').val(),
 			type : this.options.type,
-			parentId : this.$('input[name=parent_id]').val()
+			parentId : this.$('input[name=parent_id]').val()			
 		};
-
+		
 		model.save(data, {
 			success : function(model, response, options) {
 				App.Alert.alert({

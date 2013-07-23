@@ -54,10 +54,10 @@ public class Card extends Model {
 	@Column(nullable = false)
 	private Date modifiedDate;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	private Card parent;
 	
-	@OneToMany(mappedBy="parent", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="parent", cascade=CascadeType.REMOVE)
 	private List<Card> children;
 
 	/*

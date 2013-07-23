@@ -9,7 +9,6 @@ import models.Card;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -79,7 +78,7 @@ public class CardsTest {
  	      	objectNode.put("title", "test from test");
  	      	objectNode.put("description", "test story");
  	      	objectNode.put("assignee", "tester");
- 	      	//objectNode.put("parentId", correctProjectId);
+ 	      	objectNode.put("parentId", correctProjectId);
  	      	
  	      	response = WS.url("http://localhost:" + PORT + "/api/cards").post(objectNode).get();
  	         assertThat(response.getStatus()).isEqualTo(Status.OK);
@@ -228,9 +227,9 @@ public class CardsTest {
 				).isEqualTo(Status.OK);
  				
  				// Testing cascade
-				//assertThat(
-				//	WS.url("http://localhost:" + PORT + "/api/cards/" + correctStoryId).get().get().getStatus()
- 	         //).isEqualTo(Status.BAD_REQUEST);
+				assertThat(
+					WS.url("http://localhost:" + PORT + "/api/cards/" + correctStoryId).get().get().getStatus()
+ 	         ).isEqualTo(Status.NOT_FOUND);
 
  			}
  		});

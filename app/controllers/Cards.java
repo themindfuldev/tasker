@@ -1,12 +1,16 @@
 package controllers;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import models.Card;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
+
+import flexjson.JSONSerializer;
 
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -22,6 +26,9 @@ import play.mvc.Result;
 public class Cards extends Controller {
 
 	private static final String PARENT_ID = "parentId";
+	private static final JSONSerializer cardSerializer = new JSONSerializer()
+			.include("id", "type", "status", "title", "description", "assignee", "createdDate", "updateDate")
+         .exclude("*");
 
 	/**
 	 * Retrieves all projects and return OK (200) with the cards as JSON.
@@ -30,7 +37,7 @@ public class Cards extends Controller {
 	 */
 	public static Result getAllProjects() {
 		List<Card> cards = Card.allProjects();
-		return ok(Json.toJson(cards));
+		return ok(cardSerializer.serialize(cards));
 	}
 
 	/**
@@ -46,7 +53,7 @@ public class Cards extends Controller {
 
 		Card card = Card.byId(id);
 		if (card != null) {
-			result = ok(Json.toJson(card));
+			result = ok(cardSerializer.serialize(card));
 		} else {
 			result = notFound();
 		}
@@ -67,7 +74,16 @@ public class Cards extends Controller {
 
 		try {
 			ObjectNode objectNode = (ObjectNode) request().body().asJson();
-
+			
+			// Removing empty fields
+			Iterator<Entry<String, JsonNode>> fieldIterator = objectNode.getFields();
+		    while (fieldIterator.hasNext()) {
+		   	 Entry<String, JsonNode> fieldEntry = fieldIterator.next();
+		      if (fieldEntry.getValue().asText().isEmpty()) {
+		      	objectNode.remove(fieldEntry.getKey());
+		      }
+		    }
+		    
 			if (objectNode.has(PARENT_ID)) {				
 				Long parentId = objectNode.get(PARENT_ID).asLong();
 				Card parentCard = Card.byId(parentId);
@@ -81,9 +97,9 @@ public class Cards extends Controller {
 			}
 			
 			Card.create(card);
-			result = ok(Json.toJson(card));
+			
+			result = ok(cardSerializer.serialize(card));
 		} catch (Exception e) {
-			e.printStackTrace();
 			result = badRequest();
 		}
 		return result;
@@ -105,13 +121,13 @@ public class Cards extends Controller {
 
 		try {
 			JsonNode jsonNode = request().body().asJson();
-			Card originalCard = Card.byId(id);
-			Card modifiedCard = mapper.readValue(jsonNode, Card.class);
+			Card cardFromPersistence = Card.byId(id);
+			Card cardFromJson = mapper.readValue(jsonNode, Card.class);
 
-			if (originalCard.getStatus().equals(modifiedCard.getStatus()) == false) {
-				originalCard.setStatus(modifiedCard.getStatus());
-				Card.update(originalCard);
-				result = ok(Json.toJson(originalCard));
+			if (cardFromPersistence.getStatus().equals(cardFromJson.getStatus()) == false) {
+				cardFromPersistence.setStatus(cardFromJson.getStatus());
+				Card.update(cardFromPersistence);
+				result = ok(cardSerializer.serialize(cardFromPersistence));
 			} else {
 				result = noContent();
 			}

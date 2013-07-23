@@ -9,16 +9,26 @@ App.Views.ViewProject = Backbone.View.extend({
 		var template = HandlebarsCompiler.get(this.name);
 		this.$el.html(template(this.model.toJSON()));
 		
+		this.containerFragment = document.createDocumentFragment();
+		
 		if (this.model.attributes.children) {
 			this.model.attributes.children.forEach(this.addOne, this);
 		}
+		
+		this.$el.find('#project_' + this.model.id + '_stories').append(this.containerFragment);
 	},
 
 	addOne : function(card) {
-		var viewStoryView = new App.Views.ViewStory({ 
-			model : card 
+		var storyModel, viewStoryView;
+		
+		storyModel = new App.Models.Card({});
+		storyModel.attributes = card;
+	
+		viewStoryView = new App.Views.ViewStory({ 
+			model : storyModel
 		});
-		this.$el.append(viewStoryView.render());
+		viewStoryView.render();
+		this.containerFragment.appendChild(viewStoryView.el);
 	},
 	
 	removeProject : function() {

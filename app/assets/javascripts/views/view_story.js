@@ -1,13 +1,16 @@
 App.Views.ViewStory = Backbone.View.extend({
 	name: 'view_story',
+	lanes: {},
 	
 	render : function() {
-		var template = HandlebarsCompiler.get(this.name);
+		var self = this,
+			template = HandlebarsCompiler.get(this.name);
+		
 		this.$el.html(template(this.model.toJSON()));
 		
 		if (this.model.attributes.children) {
-			App.StatusTypes.forEach(function(status) {
-				this.lanes[status] = $el.find('story_' + this.model.id + '_issues_' + status);
+			_.forEach(App.StatusTypes, function(status) {
+				self.lanes[status] = self.$el.find('story_' + self.model.id + '_issues_' + status);
 			});
 
 			this.model.attributes.children.forEach(this.addOne, this);
@@ -19,7 +22,7 @@ App.Views.ViewStory = Backbone.View.extend({
 			model : card 
 		});
 		
-		this.lanes[model.status].append(viewIssueView.render());
+		this.lanes[card.status].append(viewIssueView.render());
 	}
 
 });

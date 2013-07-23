@@ -26,9 +26,7 @@ import play.mvc.Result;
 public class Cards extends Controller {
 
 	private static final String PARENT_ID = "parentId";
-	private static final JSONSerializer cardSerializer = new JSONSerializer()
-			.include("id", "type", "status", "title", "description", "assignee", "createdDate", "updateDate")
-         .exclude("*");
+	private static final JSONSerializer cardSerializer = new JSONSerializer();
 
 	/**
 	 * Retrieves all projects and return OK (200) with the cards as JSON.
@@ -37,7 +35,13 @@ public class Cards extends Controller {
 	 */
 	public static Result getAllProjects() {
 		List<Card> cards = Card.allProjects();
-		return ok(cardSerializer.serialize(cards));
+		//return ok(cardSerializer.serialize(cards));
+		for (Card card: cards) {
+			for (Card children: card.getChildren()) {
+				children.setParent(null);
+			}
+		}
+		return ok(Json.toJson(cards));
 	}
 
 	/**

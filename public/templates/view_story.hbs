@@ -1,6 +1,13 @@
 <article id="story_{{id}}" class="story">
-	<h4>Story {{title}}</h4>
-	<i>{{description}}</i> by <b>{{assignee}}</b>
+	<h4>Estória {{title}}</h4>
+	<p>
+		<i>{{description}}</i><br/>
+		Criada em {{formatDate createdDate}} por <u>{{assignee}}</u>. 
+	</p>
+	<div class="btn-group">
+	  <a class="btn" href="/card/{{id}}/new-issue" data-internal="true"><i class="icon-plus"></i> Criar item de trabalho</a>
+	  <a class="btn remove-story" data-action="delete"><i class="icon-remove"></i> Remover estória</a>
+	</div>
 	<section id="story_{{id}}_issues" class="row">
 		<span id="story_{{id}}_issues_backlog" class="span3"></span>
 		<span id="story_{{id}}_issues_in_progress" class="span3"></span>

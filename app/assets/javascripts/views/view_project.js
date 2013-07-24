@@ -2,7 +2,7 @@ App.Views.ViewProject = Backbone.View.extend({
 	name: 'view_project',
 	
 	events : {
-		'click a[data-action=delete]': 'removeProject'
+		'click a.remove-project[data-action=delete]': 'removeProject'
 	},
 	
 	render : function() {
@@ -23,6 +23,7 @@ App.Views.ViewProject = Backbone.View.extend({
 		
 		storyModel = new App.Models.Card({});
 		storyModel.attributes = card;
+		storyModel.id = card.id;
 	
 		viewStoryView = new App.Views.ViewStory({ 
 			model : storyModel
@@ -50,6 +51,5 @@ App.Views.ViewProject = Backbone.View.extend({
 			}
 		});
 	}
-
 
 });

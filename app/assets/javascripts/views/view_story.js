@@ -2,6 +2,10 @@ App.Views.ViewStory = Backbone.View.extend({
 	name: 'view_story',
 	lanes: {},
 	
+	events : {
+		'click a.remove-story[data-action=delete]': 'removeStory'
+	},
+	
 	render : function() {
 		var self = this,
 			template = HandlebarsCompiler.get(this.name);
@@ -23,6 +27,26 @@ App.Views.ViewStory = Backbone.View.extend({
 		});
 		
 		this.lanes[card.status].append(viewIssueView.render());
+	},
+	
+	removeStory : function() {
+		this.model.destroy({
+			success: function(model) {
+				App.Alert.alert({
+					message: 'Estória ' + model.attributes.title + ' removida com sucesso!',
+					type: App.AlertTypes.success,
+					trigger: true
+				});
+				Backbone.history.loadUrl(Backbone.history.fragment);
+			},
+			
+			error: function(model) {
+				App.Alert.alert({
+					message : 'Houve um erro ao remover a estória ' + model.attributes.title + '.', 
+					type: App.AlertTypes.error
+				});
+			}
+		});
 	}
 
 });

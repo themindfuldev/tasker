@@ -43,6 +43,7 @@ App.Routers.App = Backbone.Router.extend({
 				self.trigger('render', [view]);
 			},
 			error : function(collection, response, options) {
+				$('section#contents').html('');
 				App.Alert.alert({
 					message : 'Não foi possível obter os projetos.',
 					type : App.AlertTypes.error
@@ -66,6 +67,7 @@ App.Routers.App = Backbone.Router.extend({
 				self.trigger('render', [view]);
 			},
 			error : function(collection, response, options) {
+				$('section#contents').html('');				
 				App.Alert.alert({
 					message : 'Não foi possível obter o card com id = ' + id + '.', 
 					type : App.AlertTypes.error
@@ -98,7 +100,7 @@ App.Routers.App = Backbone.Router.extend({
 		var view = new App.Views.NewCard({
 			type : App.CardTypes.issue,
 			id : id,
-			title : 'Nova issue',
+			title : 'Novo item de trabalho',
 			menuItemId: 'new_issue'
 		});
 

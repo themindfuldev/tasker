@@ -13,20 +13,32 @@ App.Views.ViewStory = Backbone.View.extend({
 		this.$el.html(template(this.model.toJSON()));
 		
 		if (this.model.attributes.children) {
-			_.forEach(App.StatusTypes, function(status) {
-				self.lanes[status] = self.$el.find('story_' + self.model.id + '_issues_' + status);
+			_.each(App.StatusTypes, function(value) {
+				self.lanes[value] = document.createDocumentFragment();
+				$(self.lanes[value]).append(value.toUpperCase());
 			});
 
 			this.model.attributes.children.forEach(this.addOne, this);
 		}
+		
+		$.each(this.lanes, function(key, value) {
+			self.$el.find('#story_' + self.model.id + '_issues_' + key).html(value);	
+		});		 
 	},
 
 	addOne : function(card) {
-		var viewIssueView = new App.Views.ViewIssue({ 
-			model : card 
-		});
+		var issueModel, viewIssueView;
 		
-		this.lanes[card.status].append(viewIssueView.render());
+		issueModel = new App.Models.Card({});
+		issueModel.attributes = card;
+		issueModel.id = card.id;
+		
+		viewIssueView = new App.Views.ViewIssue({ 
+			model : issueModel 
+		});
+		viewIssueView.render();
+		
+		this.lanes[card.status.toLowerCase()].appendChild(viewIssueView.el);
 	},
 	
 	removeStory : function() {

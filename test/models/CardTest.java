@@ -3,7 +3,6 @@ import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import lib.Order;
@@ -83,8 +82,7 @@ public class CardTest {
 				Card taskCard = new Card();
 				taskCard.setType(Card.Type.TASK);
 				taskCard.setTitle("Test task");
-				taskCard
-						.setDescription("Test task from Test story from the Test project");
+				taskCard.setDescription("Test task from Test story from the Test project");
 				taskCard.setAssignee("tester");
 				taskCard.setParent(storyCard);
 				Card.create(taskCard);
@@ -109,6 +107,9 @@ public class CardTest {
 				assertThat(card).isNotNull();
 				assertThat(card.getId()).isNotNull();
 				assertThat(card.getChildren().size()).isEqualTo(1);
+				
+				Card story = Card.byId(card.getChildren().get(0).getId());
+				assertThat(story.getChildren().size()).isEqualTo(1);
 			}
 		});
 	}

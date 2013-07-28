@@ -26,7 +26,8 @@ import play.mvc.Result;
 public class Cards extends Controller {
 
 	private static final String PARENT_ID = "parentId";
-	private static final JSONSerializer cardSerializer = new JSONSerializer().include("children");
+	private static final JSONSerializer cardSerializer = new JSONSerializer()
+			.include("children").include("children.children");
 
 	/**
 	 * Retrieves all projects and return OK (200) with the cards as JSON.
@@ -34,8 +35,14 @@ public class Cards extends Controller {
 	 * @return the result
 	 */
 	public static Result getAllProjects() {
-		List<Card> cards = Card.allProjects();
-		return ok(cardSerializer.serialize(cards));
+		List<Card> projects = Card.allProjects();
+		for (Card project : projects) {
+			List<Card> stories = project.getChildren();
+			for (int i = 0; i < stories.size(); i++) {
+				stories.set(i, Card.byId(stories.get(0).getId()));
+			}
+		}
+		return ok(cardSerializer.serialize(projects));
 	}
 
 	/**
@@ -72,30 +79,30 @@ public class Cards extends Controller {
 
 		try {
 			ObjectNode objectNode = (ObjectNode) request().body().asJson();
-			
+
 			// Removing empty fields
-			Iterator<Entry<String, JsonNode>> fieldIterator = objectNode.getFields();
-		    while (fieldIterator.hasNext()) {
-		   	 Entry<String, JsonNode> fieldEntry = fieldIterator.next();
-		      if (fieldEntry.getValue().asText().isEmpty()) {
-		      	objectNode.remove(fieldEntry.getKey());
-		      }
-		    }
-		    
-			if (objectNode.has(PARENT_ID)) {				
+			Iterator<Entry<String, JsonNode>> fieldIterator = objectNode
+					.getFields();
+			while (fieldIterator.hasNext()) {
+				Entry<String, JsonNode> fieldEntry = fieldIterator.next();
+				if (fieldEntry.getValue().asText().isEmpty()) {
+					objectNode.remove(fieldEntry.getKey());
+				}
+			}
+
+			if (objectNode.has(PARENT_ID)) {
 				Long parentId = objectNode.get(PARENT_ID).asLong();
 				Card parentCard = Card.byId(parentId);
 				objectNode.remove(PARENT_ID);
 
 				card = mapper.readValue(objectNode, Card.class);
 				card.setParent(parentCard);
-			}
-			else {
+			} else {
 				card = mapper.readValue(objectNode, Card.class);
 			}
-			
+
 			Card.create(card);
-			
+
 			result = ok(cardSerializer.serialize(card));
 		} catch (Exception e) {
 			result = badRequest();

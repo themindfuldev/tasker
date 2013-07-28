@@ -13,12 +13,12 @@ App = new (Backbone.View.extend({
 		'issue' : 2
 	},
 
-	StatusTypes : {
-		'backlog' : 'BACKLOG',
-		'inProgress' : 'IN_PROGRESS',
-		'verify' : 'VERIFY',
-		'signedOff' : 'SIGNED_OFF'
-	},
+	StatusTypes : [
+		'backlog',
+		'in_progress',
+		'verify',
+		'signed_off'
+	],
 
 	AlertTypes : {
 		'success' : 'success',

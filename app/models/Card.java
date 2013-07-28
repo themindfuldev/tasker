@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -53,11 +54,12 @@ public class Card extends Model {
 
 	@Column(nullable = false)
 	private Date modifiedDate;
-	
-	@ManyToOne(cascade=CascadeType.REMOVE)
+
+	@ManyToOne(cascade = { CascadeType.REMOVE })
+	@JoinColumn(name="parent_id")
 	private Card parent;
-	
-	@OneToMany(mappedBy="parent", cascade=CascadeType.REMOVE)
+
+	@OneToMany(mappedBy = "parent", cascade = { CascadeType.REMOVE })
 	private List<Card> children;
 
 	/*
@@ -127,7 +129,7 @@ public class Card extends Model {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-	
+
 	public Card getParent() {
 		return parent;
 	}
@@ -143,7 +145,7 @@ public class Card extends Model {
 	public void setChildren(List<Card> children) {
 		this.children = children;
 	}
-	
+
 	/*
 	 * Persistence
 	 */
@@ -169,7 +171,7 @@ public class Card extends Model {
 	public static Card byId(Long id) {
 		return find.byId(id);
 	}
-	
+
 	/**
 	 * Retrieves the reference for a particular card.
 	 * 

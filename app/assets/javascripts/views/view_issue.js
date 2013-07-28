@@ -4,7 +4,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 	className: 'issue',
 	
 	events : {
-		'click button.remove-issue[data-action=delete]': 'removeIssue',
+		'click a.remove-issue[data-action=delete]': 'removeIssue',
 		'click a[data-action=move_previous]': 'movePrevious',
 		'click a[data-action=move_next]': 'moveNext'
 	},
@@ -45,7 +45,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
 		
 		this.model.attributes.status = App.StatusTypes[currentLaneIndex - 1].toUpperCase();
-		this.move();
+		this.update();
 	},
 	
 	moveNext : function() {
@@ -53,16 +53,15 @@ App.Views.ViewIssue = Backbone.View.extend({
 			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
 	
 		this.model.attributes.status = App.StatusTypes[currentLaneIndex + 1].toUpperCase();
-		this.move();
+		this.update();
 	},
 	
-	move : function() {
+	update : function() {
 		var data = this.model.attributes;
 		
 		delete data['class'];
 		delete data['next'];
 		delete data['previous'];
-		delete data['spanClass'];
 		
 		this.model.save(data, {
 			success: function(model) {

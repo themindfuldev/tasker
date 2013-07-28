@@ -1,4 +1,3 @@
-<button type="button" class="remove-issue close pull-right" data-action="delete"><i class="icon-remove"></i></button>
 <h5>{{type}} #{{id}}<br/> {{title}}</h5>
 <p>
 	<i>{{description}}</i> por <u>{{assignee}}</u>.
@@ -7,13 +6,13 @@
 	Criada em {{formatDate createdDate}}.<br/>
 	Modificada em {{formatDate modifiedDate}}.
 </p>
-{{#unlessequals status "SIGNED_OFF"}}
-<div class="btn-group row-fluid">
+<div class="btn-group btn-group-vertical">
 	{{#if previous}}
-		<a class="btn {{spanClass}}" data-action="move_previous"><i class="icon-backward"></i>{{previous}}</a>
+		<a class="btn" data-action="move_previous"><i class="icon-backward"></i>{{previous}}</a>
 	{{/if}}
 	{{#if next}}
-  		<a class="btn {{spanClass}}" data-action="move_next"><i class="icon-forward"></i>{{next}}</a>
+  		<a class="btn" data-action="move_next"><i class="icon-forward"></i>{{next}}</a>
 	{{/if}}
+	<a class="btn remove-issue" data-action="delete"><i class="icon-remove"></i>remover</a>
+	
 </div>
-{{/unlessequals}}

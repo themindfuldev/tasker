@@ -40,17 +40,13 @@ App.Views.ViewStory = Backbone.View.extend({
 			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
 		
 		// Adding previous/next
-		if (currentLaneIndex > 0) {
-			card.previous = App.StatusTypes[currentLaneIndex - 1].replace('_', ' '); 
-		}
-		if (currentLaneIndex < App.StatusTypes.length - 1) {
-			card.next = App.StatusTypes[currentLaneIndex + 1].replace('_', ' '); 
-		}
-		if (card.previous && card.next) {
-			card.spanClass = 'span6';
-		}
-		else if (card.previous || card.next) {
-			card.spanClass = 'span12';
+		if (card.status !== 'SIGNED_OFF') {
+			if (currentLaneIndex > 0) {
+				card.previous = App.StatusTypes[currentLaneIndex - 1].replace('_', ' '); 
+			}
+			if (currentLaneIndex < App.StatusTypes.length - 1) {
+				card.next = App.StatusTypes[currentLaneIndex + 1].replace('_', ' '); 
+			}
 		}
 		
 		// Populating card

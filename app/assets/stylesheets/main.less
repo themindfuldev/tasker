@@ -1,3 +1,5 @@
+@import "bootstrap.min.css";
+
 body {
   background-color: lightgrey;  
 }
@@ -56,10 +58,12 @@ article.project {
   .btn-group > .btn {
     font-variant: small-caps;
     font-size: 15px;
+    text-align: left;
     
     i {
       font-size: 0.8em;
       margin-right: 5px;
+      vertical-align: baseline;
     }  
   }
   
@@ -99,7 +103,7 @@ article.project {
               
               h5 {
                 margin-top: 0px;
-              }        
+              }
             }
           }  
         }
@@ -116,13 +120,7 @@ section#alert {
   }
 }
 
-//@media (min-width: 768px) and (max-width: 1199px), (max-width: 466px) {
-//  article.issue div.btn-group a.btn {
-//    display: block;
-//  }
-//}
-
-@media (max-width: 980px) {
+@media (max-width: 767px) {
   article.project section.stories article.story table.issues td.lane {
     display: compact;
     min-width: inherit;

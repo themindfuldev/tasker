@@ -3,6 +3,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import lib.Order;
@@ -23,6 +24,7 @@ public class CardTest {
 	
 	private static Long projectId;
 	private static Long storyId;
+	private static Long taskId;
 	
 	/**
 	 * Empties the database before the tests.
@@ -46,6 +48,7 @@ public class CardTest {
 	@Order(order=1)
 	public void testCreateCard() {
 		running(fakeApplication(), new Runnable() {
+
 			public void run() {
 				// Create parent card
 				Card projectCard = new Card();
@@ -75,6 +78,21 @@ public class CardTest {
 				assertThat(storyCard.getCreatedDate()).isNotNull();
 				assertThat(storyCard.getModifiedDate()).isNotNull();
 				assertThat(storyCard.getParent()).isNotNull();
+				
+				// Create children card, level 2
+				Card taskCard = new Card();
+				taskCard.setType(Card.Type.TASK);
+				taskCard.setTitle("Test task");
+				taskCard
+						.setDescription("Test task from Test story from the Test project");
+				taskCard.setAssignee("tester");
+				taskCard.setParent(storyCard);
+				Card.create(taskCard);
+
+				taskId = taskCard.getId();
+				assertThat(taskId).isNotNull();
+				assertThat(taskCard.getCreatedDate()).isNotNull();
+				assertThat(taskCard.getModifiedDate()).isNotNull();
 			}
 		});
 	}
@@ -141,6 +159,9 @@ public class CardTest {
 				
 				Card storyCard = Card.byId(storyId);
 				assertThat(storyCard).isNull();
+
+				Card taskCard = Card.byId(taskId);
+				assertThat(taskCard).isNull();			
 			}
 		});
 	}

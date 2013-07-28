@@ -1,5 +1,7 @@
 App.Views.ViewProject = Backbone.View.extend({
 	name: 'view_project',
+	tagName: 'article',
+	className: 'project',
 	
 	events : {
 		'click a.remove-project[data-action=delete]': 'removeProject'

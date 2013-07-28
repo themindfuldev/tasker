@@ -1,6 +1,8 @@
 App.Views.ViewStory = Backbone.View.extend({
 	name: 'view_story',
 	lanes: {},
+	tagName: 'article',
+	className: 'story',
 	
 	events : {
 		'click a.remove-story[data-action=delete]': 'removeStory'
@@ -14,15 +16,21 @@ App.Views.ViewStory = Backbone.View.extend({
 		
 		if (this.model.attributes.children) {
 			_.each(App.StatusTypes, function(value) {
-				self.lanes[value] = document.createDocumentFragment();
-				$(self.lanes[value]).append(value.toUpperCase());
+				var model = new App.Models.Lane({
+					title: value.toUpperCase().replace('_', ' ')
+				});
+				
+				self.lanes[value] = new App.Views.Lane({
+					model: model
+				});
+				self.lanes[value].render();
 			});
 
 			this.model.attributes.children.forEach(this.addOne, this);
 		}
 		
 		$.each(this.lanes, function(key, value) {
-			self.$el.find('#story_' + self.model.id + '_issues_' + key).html(value);	
+			self.$el.find('#story_' + self.model.id + '_issues').append(value.el);	
 		});		 
 	},
 
@@ -38,7 +46,7 @@ App.Views.ViewStory = Backbone.View.extend({
 		});
 		viewIssueView.render();
 		
-		this.lanes[card.status.toLowerCase()].appendChild(viewIssueView.el);
+		this.lanes[card.status.toLowerCase()].$el.append(viewIssueView.el);
 	},
 	
 	removeStory : function() {

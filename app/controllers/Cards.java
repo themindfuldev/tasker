@@ -39,7 +39,7 @@ public class Cards extends Controller {
 		for (Card project : projects) {
 			List<Card> stories = project.getChildren();
 			for (int i = 0; i < stories.size(); i++) {
-				stories.set(i, Card.byId(stories.get(0).getId()));
+				stories.set(i, Card.byId(stories.get(i).getId()));
 			}
 		}
 		return ok(cardSerializer.serialize(projects));

@@ -1,13 +1,11 @@
-<article id="project_{{id}}" class="project">
-	<h3>Projeto {{title}}</h3>
-	<p>
-		<i>{{description}}</i><br/>
-		Criado em {{formatDate createdDate}} por <u>{{assignee}}</u>.
-	</p>
-	<div class="btn-group">
-	  <a class="btn" href="/card/{{id}}/new-story" data-internal="true"><i class="icon-plus"></i> Criar estória</a>
-	  <a class="btn remove-project" data-action="delete"><i class="icon-remove"></i> Remover projeto</a>
-	</div>
-	<section id="project_{{id}}_stories">
-	</section>
-</article>
+<h3>Projeto {{title}}</h3>
+<p>
+	<i>{{description}}</i><br/>
+	Criado em {{formatDate createdDate}} por <u>{{assignee}}</u>.
+</p>
+<div class="btn-group">
+  <a class="btn" href="/card/{{id}}/new-story" data-internal="true"><i class="icon-plus"></i> Criar estória</a>
+  <a class="btn remove-project" data-action="delete"><i class="icon-remove"></i> Remover projeto</a>
+</div>
+<section id="project_{{id}}_stories">
+</section>

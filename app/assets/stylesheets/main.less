@@ -3,7 +3,7 @@ body {
 }
 
 nav.navbar {
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   margin-bottom: 0px;
   
   a.brand {
@@ -46,17 +46,44 @@ label {
 article.project {
   background-color: #dee;
   border-radius: 4px;
-  padding: 0 10px 10px;
-}
+  padding: 10px 20px;
+  margin: 20px 0px;
+  
+  h3 {
+    margin-top: 0px;
+  }
 
-article.story {
-  padding: 0 40px 0 40px;
-  border-top: 1px solid #ccc;
-  margin-top: 10px;
+  article.story {
+    padding: 0 40px 0 40px;
+    border-top: 1px solid #666;
+    margin-top: 20px;
+    
+    div.lane {
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      
+      h4.lane_title {
+        text-align: center;
+      }
+      
+      article.issue {
+        background-color: lightblue;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 4px;
+        
+        h5 {
+          margin-top: 0px;
+        }        
+      }
+    }
+  }
+
 }
 
 section#alert {
-  margin: 0 10px;
+  margin: 20px;
   div.alert {
     display: none;
   }

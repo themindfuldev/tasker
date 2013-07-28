@@ -30,7 +30,7 @@ App.Views.ViewStory = Backbone.View.extend({
 		}
 		
 		$.each(this.lanes, function(key, value) {
-			self.$el.find('#story_' + self.model.id + '_issues').append(value.el);	
+			self.$el.find('#story_' + self.model.id + '_issues tr').append(value.el);	
 		});		 
 	},
 

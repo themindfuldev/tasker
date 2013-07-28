@@ -41,17 +41,28 @@ App.Views.ViewIssue = Backbone.View.extend({
 	},
 	
 	movePrevious : function() {
-		var data,
-			self = this,
-			currentLane = this.model.attributes.status.toLowerCase(),
+		var currentLane = this.model.attributes.status.toLowerCase(),
 			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
 		
 		this.model.attributes.status = App.StatusTypes[currentLaneIndex - 1].toUpperCase();
+		this.move();
+	},
+	
+	moveNext : function() {
+		var currentLane = this.model.attributes.status.toLowerCase(),
+			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
+	
+		this.model.attributes.status = App.StatusTypes[currentLaneIndex + 1].toUpperCase();
+		this.move();
+	},
+	
+	move : function() {
+		var data = this.model.attributes;
 		
-		data = this.model.attributes;
 		delete data['class'];
 		delete data['next'];
 		delete data['previous'];
+		delete data['spanClass'];
 		
 		this.model.save(data, {
 			success: function(model) {
@@ -66,40 +77,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			
 			error: function(model) {
 				App.Alert.alert({
-					message : 'Houve um erro ao atualizar a issue ' + model.attributes.title + '.', 
-					type: 'error'
-				});
-			}
-		});
-	},
-	
-	moveNext : function() {
-		var data,
-			self = this,
-			currentLane = this.model.attributes.status.toLowerCase(),
-			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
-	
-		this.model.attributes.status = App.StatusTypes[currentLaneIndex + 1].toUpperCase();
-
-		data = this.model.attributes;
-		delete data['class'];
-		delete data['next'];
-		delete data['previous'];
-		
-		this.model.save(data, {
-			success: function(model, response, options) {
-				App.Alert.alert({
-					message: 'Issue ' + model.attributes.title + ' atualizada com sucesso!',
-					type: 'success',
-					trigger: true
-				});
-				
-				Backbone.history.loadUrl(Backbone.history.fragment);					
-			},
-			
-			error: function(model, response, options) {
-				App.Alert.alert({
-					message : 'Houve um erro ao atualizar a issue ' + model.attributes.title + '.', 
+					message: 'Houve um erro ao atualizar a issue ' + model.attributes.title + '.', 
 					type: 'error'
 				});
 			}

@@ -1,6 +1,7 @@
 App.Views.Lane = Backbone.View.extend({
 	name: 'lane',
-	className: 'span3 lane',
+	className: 'lane',
+	tagName: 'td',
 
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);

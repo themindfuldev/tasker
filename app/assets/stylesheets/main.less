@@ -72,31 +72,37 @@ article.project {
       border-radius: 4px;
       margin-top: 20px;
       
-      section.issues {
+      table.issues {
         margin-top: 20px;
+        min-width: 100%;
         
-        div.lane {
-          border: 1px solid #bbb;
-          border-radius: 4px;
-          padding: 10px;
+        tr {
+          min-width: 100%;
           
-          h4.lane_title {
-            text-align: center;
-          }
-          
-          article.issue {
-            background-color: lightblue;
-            padding: 10px;
-            margin: 10px;
+          td.lane {
+            border: 1px solid #bbb;
             border-radius: 4px;
-            font-size: 0.9em;
-            line-height: 1.4em;
+            width: 25%;
+            vertical-align: top;
             
-            h5 {
-              margin-top: 0px;
-            }        
-          }
-        }  
+            h4.lane_title {
+              text-align: center;
+            }
+            
+            article.issue {
+              background-color: lightblue;
+              padding: 10px;
+              margin: 10px;
+              border-radius: 4px;
+              font-size: 0.9em;
+              line-height: 1.4em;
+              
+              h5 {
+                margin-top: 0px;
+              }        
+            }
+          }  
+        }
       }
     }
   }
@@ -116,3 +122,9 @@ section#alert {
 //  }
 //}
 
+@media (max-width: 980px) {
+  article.project section.stories article.story table.issues td.lane {
+    display: compact;
+    min-width: inherit;
+  }
+}

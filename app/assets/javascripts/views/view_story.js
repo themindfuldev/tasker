@@ -46,6 +46,12 @@ App.Views.ViewStory = Backbone.View.extend({
 		if (currentLaneIndex < App.StatusTypes.length - 1) {
 			card.next = App.StatusTypes[currentLaneIndex + 1].replace('_', ' '); 
 		}
+		if (card.previous && card.next) {
+			card.spanClass = 'span6';
+		}
+		else if (card.previous || card.next) {
+			card.spanClass = 'span12';
+		}
 		
 		// Populating card
 		issueModel = new App.Models.Card({});

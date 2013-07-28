@@ -20,21 +20,21 @@ applications, such as:
 ### Front-end 
  
 * MVC on the client-side with Backbone.js
-** REST-based models
-** views
-** routers
-** events
-** validation
+  * REST-based models
+  * views
+  * routers
+  * events
+  * validation
 * Templating with Handlebars.js
-** Custom helpers
+  * Custom helpers
 * Using Bootstrap components
 * Using Font Awesome fonts 
 * Writing LESS css
 * Building the front-end with Grunt
-** Concatenating files
-** JSHint
+  * Concatenating files
+  * JSHint
 * Unit testing with Jasmine
-** Mocking with Sinon.JS
+  * Mocking with Sinon.JS
 * Code coverage
 * UI-level i18n 
 * Responsive/adaptive layout
@@ -42,15 +42,15 @@ applications, such as:
 ### Back-end
  
 * Play! Framework as a modern, simple yet powerful back-end
-** models
-** views
-** controllers
-** REST-based routers
-** Google Clojure compilation and minification
+  * models
+  * views
+  * controllers
+  * REST-based routers
+  * Google Clojure compilation and minification
 * Ebean as a simple ORM approach
-** JPA-based mapping
-** simple query language
-** evolutions
+  * JPA-based mapping
+  * simple query language
+  * evolutions
 * JSON manipulation with Flexjson
 * Unit testing with TestNG
 * Code coverage
@@ -63,13 +63,13 @@ applications, such as:
 * Install Play! Framework and make sure it is available from command-line
 * Checkout this project
 * Enter Play! console by typing:
-	play
+  play
 
 ## Tasks on Play! console
 
-* Compile:
-	play	
-* Test:
-	test
-* Run:
-	run
+* Compile: 
+  compile	
+* Test: 
+  test
+* Run: 
+  run

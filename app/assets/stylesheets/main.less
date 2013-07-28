@@ -38,79 +38,86 @@ section#contents {
   
   div.start-collapsed {
     display: none;
-  }
-}
-
-label {
-  margin-top: 10px;
-}
-
-article.project {
-  background-color: #dee;
-  border-radius: 4px;
-  padding: 10px 20px;
-  margin: 20px 0px;
-  
-  h3 {
-    margin-top: 0px;
-  }
-  
-  .btn-group > .btn {
-    font-variant: small-caps;
-    font-size: 15px;
-    text-align: left;
     
-    i {
-      font-size: 0.8em;
-      margin-right: 5px;
-      vertical-align: baseline;
-    }  
-  }
-  
-  section.stories {
-    margin-bottom: 10px;
-    
-    article.story {
-      padding: 10px 20px 20px 20px;
-      border: 1px solid #999;
+    article.project {
+      background-color: #dee;
       border-radius: 4px;
-      margin-top: 20px;
+      padding: 10px 20px;
+      margin: 20px 0px;
       
-      table.issues {
-        margin-top: 20px;
-        min-width: 100%;
+      h3 {
+        margin-top: 0px;
+      }
+      
+      .btn-group > .btn {
+        font-variant: small-caps;
+        font-size: 15px;
+        text-align: left;
         
-        tr {
-          min-width: 100%;
+        i {
+          font-size: 0.8em;
+          margin-right: 5px;
+          vertical-align: baseline;
+        }  
+      }
+      
+      section.stories {
+        margin-bottom: 10px;
+        
+        article.story {
+          padding: 10px 20px 20px 20px;
+          border: 1px solid #999;
+          border-radius: 4px;
+          margin-top: 20px;
           
-          td.lane {
-            border: 1px solid #bbb;
-            border-radius: 4px;
-            width: 25%;
-            vertical-align: top;
+          table.issues {
+            margin-top: 20px;
+            min-width: 100%;
             
-            h4.lane_title {
-              text-align: center;
-            }
-            
-            article.issue {
-              background-color: lightblue;
-              padding: 10px;
-              margin: 10px;
-              border-radius: 4px;
-              font-size: 0.9em;
-              line-height: 1.4em;
+            tr {
+              min-width: 100%;
               
-              h5 {
-                margin-top: 0px;
-              }
+              td.lane {
+                border: 1px solid #bbb;
+                border-radius: 4px;
+                width: 25%;
+                vertical-align: top;
+                
+                h4.lane_title {
+                  text-align: center;
+                }
+                
+                article.issue {
+                  background-color: lightblue;
+                  padding: 10px;
+                  margin: 10px;
+                  border-radius: 4px;
+                  font-size: 0.9em;
+                  line-height: 1.4em;
+                  
+                  h5 {
+                    margin-top: 0px;
+                  }
+                }
+              }  
             }
-          }  
+          }
         }
       }
     }
+    
+    form#new-card {
+      label {
+        margin-top: 10px;
+      }
+      span.error-message {
+        color: red;
+      }      
+      input[type=text].error {
+        border: 1px solid red;
+      }
+    }
   }
-
 }
 
 section#alert {

@@ -1,14 +1,17 @@
-<form>
+<form id="new-card">
 	<input name="parent_id" type="hidden" value="{{id}}" />
 	
 	<label for="title">Título</label>
-	<input name="title" autofocus />
+	<input type="text" name="title" autofocus />
+	<span id="title-error-message" class="error-message"></span>
 	
 	<label for="description">Descrição</label>
-	<input name="description" />
+	<input type="text" name="description" />
+	<span id="description-error-message" class="error-message"></span>
 	
 	<label for="assignee">Atribuido para</label>
-	<input name="assignee" />
+	<input type="text" name="assignee" />
+	<span id="assignee-error-message" class="error-message"></span>
 	
 	<hr/>
 	

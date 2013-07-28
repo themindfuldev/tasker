@@ -17,6 +17,7 @@ App.Views.NewCard = Backbone.View.extend({
 			self = this;
 
 		event.preventDefault();
+		this.cleanErrors();
 
 		model = new App.Models.Card();
 		data = {
@@ -26,6 +27,8 @@ App.Views.NewCard = Backbone.View.extend({
 			type : this.options.type,
 			parentId : this.$('input[name=parent_id]').val()			
 		};
+		
+		model.on('invalid', this.processErrors, this);
 		
 		model.save(data, {
 			success : function(model, response, options) {
@@ -37,7 +40,7 @@ App.Views.NewCard = Backbone.View.extend({
 				App.appRouter.navigate('/', { trigger : true });
 			},
 
-			error : function(model, response, options) {
+			error : function(model, xhr, options) {
 				App.Alert.alert({
 					message : 'Houve um erro ao criar o ' + self.options.type.toLowerCase() + '!',
 					type : 'error'
@@ -50,5 +53,19 @@ App.Views.NewCard = Backbone.View.extend({
 		event.preventDefault();
 
 		App.appRouter.navigate('/', { trigger : true });
+	},
+	
+	cleanErrors : function() {
+		this.$el.find('.error-message').text('');
+		this.$el.find('input[type=text]').removeClass('error');
+	},
+	
+	processErrors : function(model, errors) {
+		_.each(errors, function(error) {
+			var errorMessage = '<i class="icon-remove-sign"></i> ' + error.message; 
+			
+	        this.$el.find('#' + error.name + '-error-message').html(errorMessage);
+	        this.$el.find('input[name=' + error.name + ']').addClass('error');
+	    }, this);
 	}
 });

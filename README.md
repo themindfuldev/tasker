@@ -19,14 +19,17 @@ applications, such as:
  
 ### Front-end 
  
-* MVC on the client-side with Backbone.js:
-** models
+* MVC on the client-side with Backbone.js
+** REST-based models
 ** views
 ** routers
 ** events
 ** validation
 * Templating with Handlebars.js
-** Custom helpers 
+** Custom helpers
+* Using Bootstrap components
+* Using Font Awesome fonts 
+* Writing LESS css
 * Building the front-end with Grunt
 ** Concatenating files
 ** JSHint
@@ -38,11 +41,11 @@ applications, such as:
  
 ### Back-end
  
-* Play! Framework as a simple yet powerful back-end
+* Play! Framework as a modern, simple yet powerful back-end
 ** models
 ** views
 ** controllers
-** routers
+** REST-based routers
 ** Google Clojure compilation and minification
 * Ebean as a simple ORM approach
 ** JPA-based mapping
@@ -51,6 +54,8 @@ applications, such as:
 * JSON manipulation with Flexjson
 * Unit testing with TestNG
 * Code coverage
+* Setting production profile
+* Deploying to Heroku
 
 ## Setup
 

@@ -7,24 +7,12 @@ App = new (Backbone.View.extend({
 	Collections : {},
 	Routers : {},
 
-	CardTypes : {
-		'project' : 0,
-		'story' : 1,
-		'issue' : 2
-	},
-
 	StatusTypes : [
 		'backlog',
 		'in_progress',
 		'verify',
 		'signed_off'
 	],
-
-	AlertTypes : {
-		'success' : 'success',
-		'error' : 'error',
-		'info' : 'info'
-	},
 
 	/*
 	 * App view setup

@@ -21,7 +21,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			success: function(model) {
 				App.Alert.alert({
 					message: 'Issue ' + model.attributes.title + ' removido com sucesso!',
-					type: App.AlertTypes.success
+					type: 'success'
 				});
 				
 				self.$el.fadeOut({
@@ -34,7 +34,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			error: function(model) {
 				App.Alert.alert({
 					message : 'Houve um erro ao remover a issue ' + model.attributes.title + '.', 
-					type: App.AlertTypes.error
+					type: 'error'
 				});
 			}
 		});
@@ -57,7 +57,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			success: function(model) {
 				App.Alert.alert({
 					message: 'Issue ' + model.attributes.title + ' atualizada com sucesso!',
-					type: App.AlertTypes.success,
+					type: 'success',
 					trigger: true
 				});
 				
@@ -67,7 +67,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			error: function(model) {
 				App.Alert.alert({
 					message : 'Houve um erro ao atualizar a issue ' + model.attributes.title + '.', 
-					type: App.AlertTypes.error
+					type: 'error'
 				});
 			}
 		});
@@ -90,7 +90,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			success: function(model, response, options) {
 				App.Alert.alert({
 					message: 'Issue ' + model.attributes.title + ' atualizada com sucesso!',
-					type: App.AlertTypes.success,
+					type: 'success',
 					trigger: true
 				});
 				
@@ -100,7 +100,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			error: function(model, response, options) {
 				App.Alert.alert({
 					message : 'Houve um erro ao atualizar a issue ' + model.attributes.title + '.', 
-					type: App.AlertTypes.error
+					type: 'error'
 				});
 			}
 		});

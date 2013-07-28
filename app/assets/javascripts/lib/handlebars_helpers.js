@@ -63,3 +63,21 @@ Handlebars.registerHelper('ifequals', function(value1, value2, options) {
         return options.inverse(this);
     }
 });
+
+/**
+ * Opposite of ifequals helper
+ *
+ * If only the two values are not strictly equals ('!==') display the block
+ *
+ * Usage:
+ *        {{#unlessequals type "details"}}
+ *            <span>This is not details page</span>
+ *        {{/unlessequals}}
+ */
+Handlebars.registerHelper('unlessequals', function(value1, value2, options) {
+    var fn = options.fn;
+    options.fn = options.inverse;
+    options.inverse = fn;
+
+    return Handlebars.helpers['ifequals'].call(this, value1, value2, options);
+});

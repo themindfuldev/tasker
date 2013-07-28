@@ -7,6 +7,7 @@
 	Criada em {{formatDate createdDate}}.<br/>
 	Modificada em {{formatDate modifiedDate}}.
 </p>
+{{#unlessequals status "SIGNED_OFF"}}
 <div class="btn-group">
 	{{#if previous}}
 		<a class="btn" data-action="move_previous"><i class="icon-backward"></i> {{previous}}</a>
@@ -15,3 +16,4 @@
   		<a class="btn" data-action="move_next"><i class="icon-forward"></i> {{next}}</a>
 	{{/if}}
 </div>
+{{/unlessequals}}

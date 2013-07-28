@@ -4,7 +4,7 @@ App.Routers.App = Backbone.Router.extend({
 		var self = this;
 		
 		this.route(/^card\/(\d+)\/new-story$/, 'newStory');
-		this.route(/^card\/(\d+)\/new-issue$/, 'newIssue');
+		this.route(/^card\/(\d+)\/new-issue\/(\w+)$/, 'newIssue');
 		
 		this.on('readyToRender', this.readyToRenderEvent);
 		this.on('render', this.renderEvent);
@@ -45,7 +45,7 @@ App.Routers.App = Backbone.Router.extend({
 				$('section#contents').html('');
 				App.Alert.alert({
 					message : 'Não foi possível obter os projects.',
-					type : App.AlertTypes.error
+					type : 'error'
 				});
 			}
 		});
@@ -53,7 +53,7 @@ App.Routers.App = Backbone.Router.extend({
 
 	newProject : function() {
 		var view = new App.Views.NewCard({
-			type : App.CardTypes.project,
+			type : 'PROJECT',
 			menuItemId: 'new_project'
 		});
 
@@ -62,20 +62,20 @@ App.Routers.App = Backbone.Router.extend({
 
 	newStory : function(id) {
 		var view = new App.Views.NewCard({
-			type : App.CardTypes.story,
+			type : 'STORY',
 			id : id,
-			title: 'Nova story',
+			title: 'Criar story',
 			menuItemId: 'new_story'
 		});
 
 		this.trigger('render', [view]);
 	},
 
-	newIssue : function(id) {
+	newIssue : function(id, type) {
 		var view = new App.Views.NewCard({
-			type : App.CardTypes.issue,
+			type : type.toUpperCase(),
 			id : id,
-			title : 'Nova issue',
+			title : 'Criar ' + type,
 			menuItemId: 'new_issue'
 		});
 
@@ -120,7 +120,7 @@ App.Routers.App = Backbone.Router.extend({
 	populateNewCardMenuItem : function(view) {
 		var menuItemModel, menuItemView;
 		
-		if (this.currentView.options.type !== App.CardTypes.project) {
+		if (this.currentView.options.type !== 'PROJECT') {
 			menuItemModel = new App.Models.MenuItem({
 				name : this.currentView.options.menuItemId,
 				url : '/' + Backbone.history.fragment,

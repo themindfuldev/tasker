@@ -1,7 +1,7 @@
 App.Alert = {
 	alertQueue: [],
 		
-	// Alert types are described in App.AlertTypes
+	// Alert types are 'success', 'error' or 'info'
 	alert : function(options) {
 		var alertModel = new App.Models.Alert({
 				message : options.message,

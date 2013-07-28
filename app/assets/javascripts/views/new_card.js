@@ -13,7 +13,8 @@ App.Views.NewCard = Backbone.View.extend({
 	},
 
 	save : function(event) {
-		var model, data, parentId;
+		var model, data, parentId,
+			self = this;
 
 		event.preventDefault();
 
@@ -29,8 +30,8 @@ App.Views.NewCard = Backbone.View.extend({
 		model.save(data, {
 			success : function(model, response, options) {
 				App.Alert.alert({
-					message : 'Card ' + model.attributes.title + ' criado com sucesso!',
-					type : App.AlertTypes.success,
+					message : self.options.type.toLowerCase() + ' ' + model.attributes.title + ' criado com sucesso!',
+					type : 'success',
 					trigger : true
 				});
 				App.appRouter.navigate('/', { trigger : true });
@@ -38,8 +39,8 @@ App.Views.NewCard = Backbone.View.extend({
 
 			error : function(model, response, options) {
 				App.Alert.alert({
-					message : 'Houve um erro ao criar o card!',
-					type : App.AlertTypes.error
+					message : 'Houve um erro ao criar o ' + self.options.type.toLowerCase() + '!',
+					type : 'error'
 				});
 			}
 		});

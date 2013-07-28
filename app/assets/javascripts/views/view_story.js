@@ -35,34 +35,53 @@ App.Views.ViewStory = Backbone.View.extend({
 	},
 
 	addOne : function(card) {
-		var issueModel, viewIssueView;
+		var issueModel, viewIssueView, 
+			currentLane = card.status.toLowerCase(),
+			currentLaneIndex = App.StatusTypes.indexOf(currentLane);
 		
+		// Adding previous/next
+		if (currentLaneIndex > 0) {
+			card.previous = App.StatusTypes[currentLaneIndex - 1].replace('_', ' '); 
+		}
+		if (currentLaneIndex < App.StatusTypes.length - 1) {
+			card.next = App.StatusTypes[currentLaneIndex + 1].replace('_', ' '); 
+		}
+		
+		// Populating card
 		issueModel = new App.Models.Card({});
 		issueModel.attributes = card;
 		issueModel.id = card.id;
 		
+		// Rendering
 		viewIssueView = new App.Views.ViewIssue({ 
 			model : issueModel 
 		});
 		viewIssueView.render();
 		
-		this.lanes[card.status.toLowerCase()].$el.append(viewIssueView.el);
+		this.lanes[currentLane].$el.append(viewIssueView.el);
 	},
 	
 	removeStory : function() {
+		var self = this;
+		
 		this.model.destroy({
 			success: function(model) {
 				App.Alert.alert({
-					message: 'Estória ' + model.attributes.title + ' removida com sucesso!',
+					message: 'Story ' + model.attributes.title + ' removida com sucesso!',
 					type: App.AlertTypes.success,
 					trigger: true
 				});
-				Backbone.history.loadUrl(Backbone.history.fragment);
+
+				self.$el.fadeOut({
+					complete: function() {
+						self.remove();		
+					}
+				});				
 			},
 			
 			error: function(model) {
 				App.Alert.alert({
-					message : 'Houve um erro ao remover a estória ' + model.attributes.title + '.', 
+					message : 'Houve um erro ao remover a story ' + model.attributes.title + '.', 
 					type: App.AlertTypes.error
 				});
 			}

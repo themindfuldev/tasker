@@ -1,2 +1,11 @@
+<button type="button" class="remove-issue close pull-right" data-action="delete"><i class="icon-remove"></i></button>
 <h5>{{type}} {{title}}</h5>
-<i>{{description}}</i> by <b>{{assignee}}</b><br/>
+<p><i>{{description}}</i> by <u>{{assignee}}</u></p>
+<div class="btn-group">
+	{{#if previous}}
+		<a class="btn" data-action="move_previous"><i class="icon-backward"></i> {{previous}}</a>
+	{{/if}}
+	{{#if next}}
+  		<a class="btn" data-action="move_next"><i class="icon-forward"></i> {{next}}</a>
+	{{/if}}
+</div>

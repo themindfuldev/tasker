@@ -1,11 +1,11 @@
-<h4>Estória {{title}}</h4>
+<h4>STORY {{title}}</h4>
 <p>
 	<i>{{description}}</i><br/>
 	Criada em {{formatDate createdDate}} por <u>{{assignee}}</u>. 
 </p>
 <div class="btn-group">
-  <a class="btn" href="/card/{{id}}/new-issue" data-internal="true"><i class="icon-plus"></i> Criar item de trabalho</a>
-  <a class="btn remove-story" data-action="delete"><i class="icon-remove"></i> Remover estória</a>
+  <a class="btn" href="/card/{{id}}/new-issue" data-internal="true"><i class="icon-plus"></i> Criar issue</a>
+  <a class="btn remove-story" data-action="delete"><i class="icon-remove"></i> Remover story</a>
 </div>
-<section id="story_{{id}}_issues" class="row">
+<section id="story_{{id}}_issues" class="row issues">
 </section>

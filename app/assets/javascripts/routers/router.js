@@ -3,7 +3,6 @@ App.Routers.App = Backbone.Router.extend({
 	initialize : function(options) {
 		var self = this;
 		
-		this.route(/^card\/(\d+)$/, 'viewCard');
 		this.route(/^card\/(\d+)\/new-story$/, 'newStory');
 		this.route(/^card\/(\d+)\/new-issue$/, 'newIssue');
 		
@@ -45,31 +44,7 @@ App.Routers.App = Backbone.Router.extend({
 			error : function(collection, response, options) {
 				$('section#contents').html('');
 				App.Alert.alert({
-					message : 'Não foi possível obter os projetos.',
-					type : App.AlertTypes.error
-				});
-			}
-		});
-	},
-
-	viewCard : function(id) {
-		var self = this,
-			cardModel = new App.Models.Card({
-				id : id
-			});
-
-		cardModel.fetch({
-			success : function(model, response, options) {
-				var view = new App.Views.ViewCard({
-					model : model
-				});
-
-				self.trigger('render', [view]);
-			},
-			error : function(collection, response, options) {
-				$('section#contents').html('');				
-				App.Alert.alert({
-					message : 'Não foi possível obter o card com id = ' + id + '.', 
+					message : 'Não foi possível obter os projects.',
 					type : App.AlertTypes.error
 				});
 			}
@@ -89,7 +64,7 @@ App.Routers.App = Backbone.Router.extend({
 		var view = new App.Views.NewCard({
 			type : App.CardTypes.story,
 			id : id,
-			title: 'Nova estória',
+			title: 'Nova story',
 			menuItemId: 'new_story'
 		});
 
@@ -100,7 +75,7 @@ App.Routers.App = Backbone.Router.extend({
 		var view = new App.Views.NewCard({
 			type : App.CardTypes.issue,
 			id : id,
-			title : 'Novo item de trabalho',
+			title : 'Nova issue',
 			menuItemId: 'new_issue'
 		});
 

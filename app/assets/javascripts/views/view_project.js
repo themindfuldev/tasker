@@ -35,19 +35,26 @@ App.Views.ViewProject = Backbone.View.extend({
 	},
 	
 	removeProject : function() {
+		var self = this;
+		
 		this.model.destroy({
 			success: function(model) {
 				App.Alert.alert({
-					message: 'Projeto ' + model.attributes.title + ' removido com sucesso!',
+					message: 'Project ' + model.attributes.title + ' removido com sucesso!',
 					type: App.AlertTypes.success,
 					trigger: true
 				});
-				Backbone.history.loadUrl(Backbone.history.fragment);
+
+				self.$el.fadeOut({
+					complete: function() {
+						self.remove();		
+					}
+				});				
 			},
 			
 			error: function(model) {
 				App.Alert.alert({
-					message : 'Houve um erro ao remover o projeto ' + model.attributes.title + '.', 
+					message : 'Houve um erro ao remover o project ' + model.attributes.title + '.', 
 					type: App.AlertTypes.error
 				});
 			}

@@ -1,6 +1,12 @@
 <button type="button" class="remove-issue close pull-right" data-action="delete"><i class="icon-remove"></i></button>
 <h5>{{type}} #{{id}}: {{title}}</h5>
-<p><i>{{description}}</i> by <u>{{assignee}}</u></p>
+<p>
+	<i>{{description}}</i> por <u>{{assignee}}</u>.
+</p>
+<p>
+	Criada em {{formatDate createdDate}}.<br/>
+	Modificada em {{formatDate modifiedDate}}.
+</p>
 <div class="btn-group">
 	{{#if previous}}
 		<a class="btn" data-action="move_previous"><i class="icon-backward"></i> {{previous}}</a>

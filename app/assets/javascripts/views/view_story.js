@@ -68,13 +68,12 @@ App.Views.ViewStory = Backbone.View.extend({
 		
 		this.model.destroy({
 			success: function(model) {
-				App.Alert.alert({
-					message: 'Story ' + model.attributes.title + ' removida com sucesso!',
-					type: 'success'
-				});
-				
 				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
 					self.remove();		
+					App.Alert.alert({
+						message: 'O story ' + model.attributes.title + ' foi removido com sucesso!',
+						type: 'success'
+					});
 				});
 			},
 			

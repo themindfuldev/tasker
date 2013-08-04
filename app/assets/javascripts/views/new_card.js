@@ -1,6 +1,5 @@
 App.Views.NewCard = Backbone.View.extend({
 	name : 'new_card',
-	className : 'start-collapsed',
 
 	render : function() {
 		var template = HandlebarsCompiler.get(this.name);
@@ -32,11 +31,11 @@ App.Views.NewCard = Backbone.View.extend({
 		
 		model.save(data, {
 			success : function(model, response, options) {
-				App.appRouter.navigate('/', { trigger : true });
-				App.Alert.alert({
+				App.Alert.push({
 					message : 'O ' + self.options.type.toLowerCase() + ' ' + model.attributes.title + ' foi criado com sucesso!',
 					type : 'success'
 				});
+				App.appRouter.navigate('/', { trigger : true });
 			},
 
 			error : function(model, xhr, options) {

@@ -1,10 +1,13 @@
 App.Routers.App = Backbone.Router.extend({
 	
 	initialize : function(options) {
-		var self = this;
-		
+		// Parameterized routes
 		this.route(/^card\/(\d+)\/new-story$/, 'newStory');
 		this.route(/^card\/(\d+)\/new-issue\/(\w+)$/, 'newIssue');
+		
+		this.pageView = new App.Views.Page({
+			el: $('section#page')
+		});
 	},
 
 	routes : {
@@ -16,8 +19,6 @@ App.Routers.App = Backbone.Router.extend({
 	before : function(route, params) {
 		var handler = this.routes[route];
 		console.log('Navigated to ' + handler + ' route.');
-		
-		App.Alert.dismissAlerts();
 	},
 	
 	/*
@@ -84,9 +85,10 @@ App.Routers.App = Backbone.Router.extend({
 			self = this;
 		
 		this.currentView = view;
+		
 		// Dismissing previous view
 		if (previousView) {
-			App.AnimationBuffer.add(previousView.$el.fadeOut, previousView.$el, function() {
+			App.AnimationBuffer.add(this.pageView.$el.fadeOut, this.pageView.$el, function() {
 				previousView.remove();
 				self.displayCurrentView();
 			});
@@ -103,9 +105,11 @@ App.Routers.App = Backbone.Router.extend({
 		this.selectMenu();
 
 		// Rendering new view
+		this.pageView.render();
 		this.currentView.render();
-		$('section#contents').html(this.currentView.el);
-		App.AnimationBuffer.add(this.currentView.$el.fadeIn, this.currentView.$el, function() {
+		App.Alert.displayAllAlerts();
+		this.pageView.$el.find('section#contents').html(this.currentView.el);
+		App.AnimationBuffer.add(this.pageView.$el.fadeIn, this.pageView.$el, function() {
 			console.log('Rendered ' + self.currentView.name + ' view.');
 		});		
 	},

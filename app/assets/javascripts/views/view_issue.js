@@ -19,15 +19,12 @@ App.Views.ViewIssue = Backbone.View.extend({
 		
 		this.model.destroy({
 			success: function(model) {
-				App.Alert.alert({
-					message: 'Issue ' + model.attributes.title + ' removido com sucesso!',
-					type: 'success'
-				});
-				
-				self.$el.fadeOut({
-					complete: function() {
-						self.remove();		
-					}
+				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
+					self.remove();		
+					App.Alert.alert({
+						message: 'O issue ' + model.attributes.title + ' foi removido com sucesso!',
+						type: 'success'
+					});
 				});				
 			},
 			
@@ -65,7 +62,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 		
 		this.model.save(data, {
 			success: function(model) {
-				App.Alert.alert({
+				App.Alert.push({
 					message: 'Issue ' + model.attributes.title + ' atualizada com sucesso!',
 					type: 'success'
 				});

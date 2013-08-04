@@ -67,8 +67,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 			success: function(model) {
 				App.Alert.alert({
 					message: 'Issue ' + model.attributes.title + ' atualizada com sucesso!',
-					type: 'success',
-					trigger: true
+					type: 'success'
 				});
 				
 				Backbone.history.loadUrl(Backbone.history.fragment);		

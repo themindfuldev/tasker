@@ -41,15 +41,12 @@ App.Views.ViewProject = Backbone.View.extend({
 			success: function(model) {
 				App.Alert.alert({
 					message: 'Project ' + model.attributes.title + ' removido com sucesso!',
-					type: 'success',
-					trigger: true
+					type: 'success'
 				});
 
-				self.$el.fadeOut({
-					complete: function() {
-						self.remove();		
-					}
-				});				
+				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
+					self.remove();		
+				});
 			},
 			
 			error: function(model) {

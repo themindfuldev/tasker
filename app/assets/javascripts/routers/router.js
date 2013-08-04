@@ -5,10 +5,6 @@ App.Routers.App = Backbone.Router.extend({
 		
 		this.route(/^card\/(\d+)\/new-story$/, 'newStory');
 		this.route(/^card\/(\d+)\/new-issue\/(\w+)$/, 'newIssue');
-		
-		this.on('readyToRender', this.readyToRenderEvent);
-		this.on('render', this.renderEvent);
-		this.on('readyToAlert', this.dismissPreviousViewEvent);
 	},
 
 	routes : {
@@ -21,9 +17,7 @@ App.Routers.App = Backbone.Router.extend({
 		var handler = this.routes[route];
 		console.log('Navigated to ' + handler + ' route.');
 		
-		this.isReadyToRender = false;
-
-		App.Alert.dismissAlerts(this.dismissPreviousView);
+		App.Alert.dismissAlerts();
 	},
 	
 	/*
@@ -39,7 +33,7 @@ App.Routers.App = Backbone.Router.extend({
 					collection : collection
 				});
 
-				self.trigger('render', [view]);
+				self.render(view);
 			},
 			error : function(collection, response, options) {
 				$('section#contents').html('');
@@ -57,7 +51,7 @@ App.Routers.App = Backbone.Router.extend({
 			menuItemId: 'new_project'
 		});
 
-		this.trigger('render', [view]);
+		this.render(view);
 	},
 
 	newStory : function(id) {
@@ -68,7 +62,7 @@ App.Routers.App = Backbone.Router.extend({
 			menuItemId: 'new_story'
 		});
 
-		this.trigger('render', [view]);
+		this.render(view);
 	},
 
 	newIssue : function(id, type) {
@@ -79,23 +73,41 @@ App.Routers.App = Backbone.Router.extend({
 			menuItemId: 'new_issue'
 		});
 
-		this.trigger('render', [view]);
+		this.render(view);
 	},
 	
 	/*
 	 * Renderization functions
 	 */
 	render : function(view) {
-		this.currentView = view;
+		var previousView = this.currentView,
+			self = this;
 		
+		this.currentView = view;
+		// Dismissing previous view
+		if (previousView) {
+			App.AnimationBuffer.add(previousView.$el.fadeOut, previousView.$el, function() {
+				previousView.remove();
+				self.displayCurrentView();
+			});
+		}
+		else {
+			this.displayCurrentView();
+		}
+	},
+	
+	displayCurrentView : function() {
+		var self = this;
+		
+		// Selecting menu
 		this.selectMenu();
 
 		// Rendering new view
 		this.currentView.render();
 		$('section#contents').html(this.currentView.el);
-		this.currentView.$el.fadeIn();
-
-		console.log('Rendered ' + this.currentView.name + ' view.');
+		App.AnimationBuffer.add(this.currentView.$el.fadeIn, this.currentView.$el, function() {
+			console.log('Rendered ' + self.currentView.name + ' view.');
+		});		
 	},
 
 	selectMenu : function() {
@@ -135,51 +147,6 @@ App.Routers.App = Backbone.Router.extend({
 		}
 		
 		return this.currentView.options.menuItemId;
-	},
-	
-	/*
-	 * Events
-	 */
-	readyToRenderEvent : function(event) {
-		App.Alert.renderTriggeredAlerts();
-		
-		if (this.nextView) {
-			this.render(this.nextView);
-			delete self.nextView;
-		}
-		else {
-			this.isReadyToRender = true;
-			App.Helpers.showLoading('section#contents');			
-		}
-	},
-	
-	renderEvent : function(parameters) {
-		var view = parameters[0];
-		
-		if (this.isReadyToRender) {
-			this.render(view);
-			delete self.isReadyToRender;
-		}
-		else {
-			this.nextView = view;
-		}
-	},
-	
-	dismissPreviousViewEvent : function() {
-		var self = this,
-			previousView = this.currentView;
-		
-		if (previousView) {
-			previousView.$el.fadeOut({
-				complete : function() {
-					self.trigger('readyToRender');
-					previousView.remove();
-				}
-			});
-		}
-		else {
-			self.trigger('readyToRender');
-		}
 	}
-
+	
 });

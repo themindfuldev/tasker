@@ -32,12 +32,11 @@ App.Views.NewCard = Backbone.View.extend({
 		
 		model.save(data, {
 			success : function(model, response, options) {
-				App.Alert.alert({
-					message : self.options.type.toLowerCase() + ' ' + model.attributes.title + ' criado com sucesso!',
-					type : 'success',
-					trigger : true
-				});
 				App.appRouter.navigate('/', { trigger : true });
+				App.Alert.alert({
+					message : 'O ' + self.options.type.toLowerCase() + ' ' + model.attributes.title + ' foi criado com sucesso!',
+					type : 'success'
+				});
 			},
 
 			error : function(model, xhr, options) {

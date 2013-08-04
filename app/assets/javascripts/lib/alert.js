@@ -1,6 +1,4 @@
 App.Alert = {
-	alertQueue: [],
-		
 	// Alert types are 'success', 'error' or 'info'
 	alert : function(options) {
 		var alertModel = new App.Models.Alert({
@@ -13,37 +11,22 @@ App.Alert = {
 
 		alertView.render();
 
-		if (options.trigger) {
-			App.Alert.alertQueue.push(alertView);
-		} else {
-			this.renderAlert(alertView);
-		}
+		this.renderAlert(alertView);
 	},
 	
 	renderAlert : function(alertView) {
 		$('section#alert').append(alertView.el);
-		alertView.$el.fadeIn();
+		App.AnimationBuffer.add(alertView.$el.fadeIn, alertView.$el);
 	},
 	
-	dismissAlerts : function(callback) {
+	dismissAlerts : function() {
 		var alertView,
 			currentAlerts = $('section#alert > div');
 		
 		if (currentAlerts.length > 0) {
-			currentAlerts.fadeOut({
-				complete: function() {
-					$('section#alert > div').remove();
-				}
+			App.AnimationBuffer.add(currentAlerts.fadeOut, currentAlerts, function() {
+				currentAlerts.remove();
 			});
-		}
-		App.appRouter.trigger('readyToAlert', [callback]);
-	},
-	
-	renderTriggeredAlerts : function() {
-		// Render triggered alerts
-		while (App.Alert.alertQueue.length) {
-			alertView = App.Alert.alertQueue.pop(); 
-			this.renderAlert(alertView);
 		}
 	}
 };

@@ -126,3 +126,25 @@ section#alert {
     min-width: inherit;
   }
 }
+
+@media (max-width: 641px) {
+  article.story > div.btn-group {
+    a.btn {
+      display: block;
+      border-radius: 0px;
+    }
+    
+    a.btn:first-child {
+      border-radius: 4px 4px 0 0;
+    }
+
+    a.btn:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+    
+    a.btn + a.btn {
+      margin-top: -1px;
+      margin-left: 0px;
+    }
+  }
+}

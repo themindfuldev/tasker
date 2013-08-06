@@ -11,6 +11,15 @@ nav.navbar {
   a.brand {
     font-weight: bold;
   }
+  
+  ul#menu li a i {
+    vertical-align: baseline;
+  }
+  
+  ul#menu li a:hover {
+    background-color: #e5e5e5;
+  }
+
 }
 
 footer {
@@ -123,14 +132,14 @@ section#alert {
   }
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
   article.project section.stories article.story table.issues td.lane {
     display: compact;
     min-width: inherit;
   }
 }
 
-@media (max-width: 641px) {
+@media screen and (max-width: 655px) {
   article.story > div.btn-group {
     a.btn {
       display: block;

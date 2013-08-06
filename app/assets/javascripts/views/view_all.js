@@ -8,7 +8,7 @@ App.Views.ViewAll = Backbone.View.extend({
 			this.$el.append(this.elFragment);
 		} else {
 			App.Alert.alert({
-				message : 'Não há projects.',
+				message : $.i18n.prop('message.there_is_no', $.i18n.prop('type.project')),
 				type : 'info'
 			});
 		}

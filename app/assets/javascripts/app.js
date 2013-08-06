@@ -7,12 +7,7 @@ App = new (Backbone.View.extend({
 	Collections : {},
 	Routers : {},
 
-	StatusTypes : [
-		'backlog',
-		'in_progress',
-		'verify',
-		'signed_off'
-	],
+	StatusTypes : [ 'backlog', 'in_progress', 'verify', 'signed_off' ],
 
 	/*
 	 * App view setup
@@ -33,7 +28,7 @@ App = new (Backbone.View.extend({
 		this.$el.html(appTemplate());
 
 		this.menuView = new App.Views.Menu({
-			el: $('ul#menu')
+			el : $('ul#menu')
 		});
 		this.menuView.render();
 	},
@@ -51,6 +46,20 @@ App = new (Backbone.View.extend({
 });
 
 $(function() {
-	App.render();
-	App.start();
+	var lang = $.cookie('lang');
+
+	if (!lang) {
+		lang = $.i18n.browserLang();
+	}
+
+	$.i18n.properties({
+		name : 'messages',
+		path : 'assets/i18n/',
+		mode : 'both',
+		language : lang,
+		callback : function() {
+			App.render();
+			App.start();
+		}
+	});
 });

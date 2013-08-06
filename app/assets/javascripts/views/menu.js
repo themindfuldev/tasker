@@ -11,7 +11,7 @@ App.Views.Menu = Backbone.View.extend({
 		menuItemModel = new App.Models.MenuItem({
 			name : 'new_project',
 			url : '/card/new-project',
-			title : 'Criar project'
+			title : 'Criar projeto'
 		}), 
 		menuItemView = new App.Views.MenuItem({
 			model : menuItemModel

@@ -17,7 +17,7 @@ App.Views.ViewStory = Backbone.View.extend({
 		if (this.model.attributes.children) {
 			_.each(App.StatusTypes, function(value) {
 				var model = new App.Models.Lane({
-					title: value.toUpperCase().replace('_', ' ')
+					title: $.i18n.prop(value).toUpperCase()
 				});
 				
 				self.lanes[value] = new App.Views.Lane({

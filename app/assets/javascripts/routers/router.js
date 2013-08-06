@@ -39,7 +39,7 @@ App.Routers.App = Backbone.Router.extend({
 			error : function(collection, response, options) {
 				$('section#contents').html('');
 				App.Alert.alert({
-					message : 'Não foi possível obter os projects.',
+					message : 'Não foi possível obter os projetos.',
 					type : 'error'
 				});
 			}
@@ -59,7 +59,7 @@ App.Routers.App = Backbone.Router.extend({
 		var view = new App.Views.NewCard({
 			type : 'STORY',
 			id : id,
-			title: 'Criar story',
+			title: 'Criar estória',
 			menuItemId: 'new_story'
 		});
 

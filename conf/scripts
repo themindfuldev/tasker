@@ -4,6 +4,8 @@
 # ~~~~
 
 jquery.min.js
+jquery.cookie.min.js
+jquery.i18n.min.js
 json2.min.js
 underscore.min.js
 backbone.min.js

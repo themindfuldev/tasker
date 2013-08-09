@@ -1,20 +1,20 @@
 <form id="new-card">
 	<input name="parent_id" type="hidden" value="{{id}}" />
 	
-	<label for="title">Título</label>
+	<label for="title">{{i18n 'card.title'}}</label>
 	<input type="text" name="title" autofocus />
 	<span id="title-error-message" class="error-message"></span>
 	
-	<label for="description">Descrição</label>
+	<label for="description">{{i18n 'card.description'}}</label>
 	<input type="text" name="description" />
 	<span id="description-error-message" class="error-message"></span>
 	
-	<label for="assignee">Atribuido para</label>
+	<label for="assignee">{{i18n 'card.assigned_to'}}</label>
 	<input type="text" name="assignee" />
 	<span id="assignee-error-message" class="error-message"></span>
 	
 	<hr/>
 	
-	<input id="submit_button" type="submit" class="btn btn-success" value="Salvar" ></input>
-	<input id="cancel_button" type="button" class="btn btn-warning" value="Cancelar"></input>
+	<input id="submit_button" type="submit" class="btn btn-success" value="{{i18n 'action.save'}}" ></input>
+	<input id="cancel_button" type="button" class="btn btn-warning" value="{{i18n 'action.cancel'}}"></input>
 </form>

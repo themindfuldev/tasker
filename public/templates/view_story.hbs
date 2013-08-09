@@ -3,13 +3,13 @@
 	<i>{{description}}</i>
 </p>
 <p>
-	Criada em {{formatDate createdDate}} por <u>{{assignee}}</u>. 
+	{{i18n 'card.created_at'}} {{formatDate createdDate}} {{i18n 'card.by'}} <u>{{assignee}}</u>. 
 </p>
 <div class="btn-group">
-  <a class="btn" href="/card/{{id}}/new-issue/task" data-internal="true"><i class="icon-plus"></i>criar tarefa</a>
-  <a class="btn" href="/card/{{id}}/new-issue/bug" data-internal="true"><i class="icon-plus"></i>criar defeito</a>
-  <a class="btn" href="/card/{{id}}/new-issue/enhancement" data-internal="true"><i class="icon-plus"></i>criar melhoria</a>
-  <a class="btn remove-story" data-action="delete"><i class="icon-remove"></i>remover estória</a>
+  <a class="btn" href="/card/{{id}}/new-issue/task" data-internal="true"><i class="icon-plus"></i>{{i18n-lowercase 'action.create'}} {{i18n 'type.task'}}</a>
+  <a class="btn" href="/card/{{id}}/new-issue/bug" data-internal="true"><i class="icon-plus"></i>{{i18n-lowercase 'action.create'}} {{i18n 'type.bug'}}</a>
+  <a class="btn" href="/card/{{id}}/new-issue/enhancement" data-internal="true"><i class="icon-plus"></i>{{i18n-lowercase 'action.create'}} {{i18n 'type.enhancement'}}</a>
+  <a class="btn remove-story" data-action="delete"><i class="icon-remove"></i>{{i18n-lowercase 'action.remove'}} {{i18n 'type.story'}}</a>
 </div>
 <table id="story_{{id}}_issues" class="issues">
 	<tr></tr>

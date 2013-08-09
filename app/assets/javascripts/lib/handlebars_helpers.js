@@ -96,15 +96,29 @@ Handlebars.registerHelper('i18n', function(property, preffix) {
 });
 
 /**
- * jQuery i18n plugin helper
+ * jQuery i18n plugin helper for uppercase messages
  * 
- * Will return the current i18n mapping for a property
+ * Will return the current i18n mapping for a property and convert to to uppercase
  * 
- * Usage: <span>{{i18n "property"}}</span>
+ * Usage: <span>{{i18n-uppercase "property"}}</span>
  */
 Handlebars.registerHelper('i18n-uppercase', function(property, preffix) {
 	if (typeof preffix === 'string') {
 		property = preffix + '.' + property;
 	}
 	return $.i18n.prop(property.toLowerCase()).toUpperCase();
+});
+
+/**
+ * jQuery i18n plugin helper for lowercase messages
+ * 
+ * Will return the current i18n mapping for a property and convert to to lowercase
+ * 
+ * Usage: <span>{{i18n-lowercase "property"}}</span>
+ */
+Handlebars.registerHelper('i18n-lowercase', function(property, preffix) {
+	if (typeof preffix === 'string') {
+		property = preffix + '.' + property;
+	}
+	return $.i18n.prop(property.toLowerCase()).toLowerCase();
 });

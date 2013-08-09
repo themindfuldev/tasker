@@ -42,10 +42,10 @@ App.Views.ViewStory = Backbone.View.extend({
 		// Adding previous/next
 		if (card.status !== 'SIGNED_OFF') {
 			if (currentLaneIndex > 0) {
-				card.previous = App.StatusTypes[currentLaneIndex - 1].replace('_', ' '); 
+				card.previous = $.i18n.prop('status.' + App.StatusTypes[currentLaneIndex - 1]); 
 			}
 			if (currentLaneIndex < App.StatusTypes.length - 1) {
-				card.next = App.StatusTypes[currentLaneIndex + 1].replace('_', ' '); 
+				card.next = $.i18n.prop('status.' + App.StatusTypes[currentLaneIndex + 1]); 
 			}
 		}
 		

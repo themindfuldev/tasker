@@ -3,11 +3,11 @@
 	<i>{{description}}</i>
 </p>
 <p>	
-	Criado em {{formatDate createdDate}} por <u>{{assignee}}</u>.
+	{{i18n 'card.created_at'}} {{formatDate createdDate}} {{i18n 'card.by'}} <u>{{assignee}}</u>.
 </p>
 <div class="btn-group">
-  <a class="btn" href="/card/{{id}}/new-story" data-internal="true"><i class="icon-plus"></i>criar estória</a>
-  <a class="btn remove-project" data-action="delete"><i class="icon-remove"></i>remover projeto</a>
+  <a class="btn" href="/card/{{id}}/new-story" data-internal="true"><i class="icon-plus"></i>{{i18n-lowercase 'action.create'}} {{i18n 'type.story'}}</a>
+  <a class="btn remove-project" data-action="delete"><i class="icon-remove"></i>{{i18n-lowercase 'action.remove'}} {{i18n 'type.project'}}</a>
 </div>
 <section id="project_{{id}}_stories" class="stories">
 </section>

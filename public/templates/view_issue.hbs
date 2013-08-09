@@ -1,10 +1,10 @@
 <h5>{{i18n-uppercase type 'type'}} #{{id}}<br/> {{title}}</h5>
 <p>
-	<i>{{description}}</i> por <u>{{assignee}}</u>.
+	<i>{{description}}</i> {{i18n 'card.by'}} <u>{{assignee}}</u>.
 </p>
 <p>
-	Criada em {{formatDate createdDate}}.<br/>
-	Modificada em {{formatDate modifiedDate}}.
+	{{i18n 'card.created_at'}} {{formatDate createdDate}}.<br/>
+	{{i18n 'card.modified_at'}} {{formatDate modifiedDate}}.
 </p>
 <div class="btn-group btn-group-vertical">
 	{{#if previous}}
@@ -13,6 +13,6 @@
 	{{#if next}}
   		<a class="btn" data-action="move_next"><i class="icon-forward"></i>{{next}}</a>
 	{{/if}}
-	<a class="btn remove-issue" data-action="delete"><i class="icon-remove"></i>remover</a>
+	<a class="btn remove-issue" data-action="delete"><i class="icon-remove"></i>{{i18n-lowercase 'action.remove'}}</a>
 	
 </div>

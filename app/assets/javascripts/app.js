@@ -20,17 +20,24 @@ App = new (Backbone.View.extend({
 			this.appRouter.navigate(event.currentTarget.pathname, {
 				trigger : true
 			});
+		},
+		'click a.lang' : function(event) {
+			event.preventDefault();
+		    $.cookie('lang', $(event.currentTarget).data('lang'), { expires: 365 });
+		    window.location.reload();
 		}
 	},
 
-	render : function() {
+	render : function(lang) {
 		var appTemplate = HandlebarsCompiler.get(this.name);
-		this.$el.html(appTemplate());
+		this.$el.html(appTemplate({ lang: lang }));
 
 		this.menuView = new App.Views.Menu({
 			el : $('ul#menu')
 		});
 		this.menuView.render();
+		
+		$('.dropdown-toggle').dropdown();
 	},
 
 	start : function() {
@@ -58,7 +65,7 @@ $(function() {
 		mode : 'both',
 		language : lang,
 		callback : function() {
-			App.render();
+			App.render(lang);
 			App.start();
 		}
 	});

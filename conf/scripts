@@ -12,6 +12,7 @@ backbone.min.js
 backbone.routefilter.min.js
 handlebars.min.js
 bootstrap.min.js
+bootstrap-dropdown.min.js
 moment.min.js
 app.js
 lib

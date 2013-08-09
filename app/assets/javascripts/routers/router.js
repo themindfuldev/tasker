@@ -71,7 +71,7 @@ App.Routers.App = Backbone.Router.extend({
 			type : type.toUpperCase(),
 			id : id,
 			title : $.i18n.prop('action.create') + ' ' + $.i18n.prop('type.' + type),
-			menuItemId: 'new_issue'
+			menuItemId: 'new_' + type
 		});
 
 		this.render(view);

@@ -17,7 +17,7 @@ App.Views.ViewStory = Backbone.View.extend({
 		if (this.model.attributes.children) {
 			_.each(App.StatusTypes, function(value) {
 				var model = new App.Models.Lane({
-					title: $.i18n.prop(value).toUpperCase()
+					title: $.i18n.prop('status.' + value).toUpperCase()
 				});
 				
 				self.lanes[value] = new App.Views.Lane({
@@ -64,26 +64,7 @@ App.Views.ViewStory = Backbone.View.extend({
 	},
 	
 	removeStory : function() {
-		var self = this;
-		
-		this.model.destroy({
-			success: function(model) {
-				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
-					self.remove();		
-					App.Alert.alert({
-						message: 'O story ' + model.attributes.title + ' foi removido com sucesso!',
-						type: 'success'
-					});
-				});
-			},
-			
-			error: function(model) {
-				App.Alert.alert({
-					message : 'Houve um erro ao remover a story ' + model.attributes.title + '.', 
-					type: 'error'
-				});
-			}
-		});
+		App.CardHelpers.remove(this);
 	}
 
 });

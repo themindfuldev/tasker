@@ -39,7 +39,7 @@ App.Routers.App = Backbone.Router.extend({
 			error : function(collection, response, options) {
 				$('section#contents').html('');
 				App.Alert.alert({
-					message : 'Não foi possível obter os projetos.',
+					message : $.i18n.prop('message.it_wasnt_possible_to_retrieve', $.i18n.prop('type.project')),
 					type : 'error'
 				});
 			}
@@ -59,7 +59,7 @@ App.Routers.App = Backbone.Router.extend({
 		var view = new App.Views.NewCard({
 			type : 'STORY',
 			id : id,
-			title: 'Criar estória',
+			title: $.i18n.prop('menu.create', $.i18n.prop('type.story')),
 			menuItemId: 'new_story'
 		});
 
@@ -70,7 +70,7 @@ App.Routers.App = Backbone.Router.extend({
 		var view = new App.Views.NewCard({
 			type : type.toUpperCase(),
 			id : id,
-			title : 'Criar ' + type,
+			title : $.i18n.prop('menu.create', $.i18n.prop('type.' + type)),
 			menuItemId: 'new_issue'
 		});
 

@@ -15,26 +15,7 @@ App.Views.ViewIssue = Backbone.View.extend({
 	},
 	
 	removeIssue : function() {
-		var self = this;
-		
-		this.model.destroy({
-			success: function(model) {
-				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
-					self.remove();		
-					App.Alert.alert({
-						message: 'O issue ' + model.attributes.title + ' foi removido com sucesso!',
-						type: 'success'
-					});
-				});				
-			},
-			
-			error: function(model) {
-				App.Alert.alert({
-					message : 'Houve um erro ao remover a issue ' + model.attributes.title + '.', 
-					type: 'error'
-				});
-			}
-		});
+		App.CardHelpers.remove(this);
 	},
 	
 	movePrevious : function() {
@@ -60,22 +41,6 @@ App.Views.ViewIssue = Backbone.View.extend({
 		delete data['next'];
 		delete data['previous'];
 		
-		this.model.save(data, {
-			success: function(model) {
-				App.Alert.push({
-					message: 'Issue ' + model.attributes.title + ' atualizada com sucesso!',
-					type: 'success'
-				});
-				
-				Backbone.history.loadUrl(Backbone.history.fragment);		
-			},
-			
-			error: function(model) {
-				App.Alert.alert({
-					message: 'Houve um erro ao atualizar a issue ' + model.attributes.title + '.', 
-					type: 'error'
-				});
-			}
-		});
+		App.CardHelpers.update(this, data);
 	}
 });

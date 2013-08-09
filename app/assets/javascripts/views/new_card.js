@@ -29,22 +29,7 @@ App.Views.NewCard = Backbone.View.extend({
 		
 		model.on('invalid', this.processErrors, this);
 		
-		model.save(data, {
-			success : function(model, response, options) {
-				App.Alert.push({
-					message : 'O ' + self.options.type.toLowerCase() + ' ' + model.attributes.title + ' foi criado com sucesso!',
-					type : 'success'
-				});
-				App.appRouter.navigate('/', { trigger : true });
-			},
-
-			error : function(model, xhr, options) {
-				App.Alert.alert({
-					message : 'Houve um erro ao criar o ' + self.options.type.toLowerCase() + '!',
-					type : 'error'
-				});
-			}
-		});
+		App.CardHelpers.create(this, model, data);
 	},
 
 	cancel : function(event) {

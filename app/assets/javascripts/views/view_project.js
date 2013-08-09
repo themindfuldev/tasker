@@ -35,26 +35,7 @@ App.Views.ViewProject = Backbone.View.extend({
 	},
 	
 	removeProject : function() {
-		var self = this;
-		
-		this.model.destroy({
-			success: function(model) {
-				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
-					self.remove();		
-					App.Alert.alert({
-						message: 'O project ' + model.attributes.title + ' foi removido com sucesso!',
-						type: 'success'
-					});
-				});
-			},
-			
-			error: function(model) {
-				App.Alert.alert({
-					message : 'Houve um erro ao remover o project ' + model.attributes.title + '.', 
-					type: 'error'
-				});
-			}
-		});
+		App.CardHelpers.remove(this);
 	}
 
 });

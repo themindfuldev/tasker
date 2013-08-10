@@ -3,7 +3,8 @@
 	<i>{{description}}</i>
 </p>
 <p>	
-	{{i18n 'card.created_at'}} {{formatDate createdDate}} {{i18n 'card.by'}} <u>{{assignee}}</u>.
+	<i class="icon-time"></i> {{formatDate createdDate}}<br/>
+	<i class="icon-user"></i> <u>{{assignee}}</u>
 </p>
 <div class="btn-group">
   <a class="btn" href="/card/{{id}}/new-story" data-internal="true"><i class="icon-plus"></i>{{i18n-lowercase 'action.create'}} {{i18n 'type.story'}}</a>

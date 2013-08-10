@@ -1,10 +1,11 @@
 <h5>{{i18n-uppercase type 'type'}} #{{id}}<br/> {{title}}</h5>
 <p>
-	<i>{{description}}</i> {{i18n 'card.by'}} <u>{{assignee}}</u>.
+	<i>{{description}}</i><br/>
+	<i class="icon-user"></i> <u>{{assignee}}</u>
 </p>
 <p>
-	{{i18n 'card.created_at'}} {{formatDate createdDate}}.<br/>
-	{{i18n 'card.modified_at'}} {{formatDate modifiedDate}}.
+	<i class="icon-time"></i> {{formatDate createdDate 'DD/MM/YY HH:mm'}}<br/>
+	<i class="icon-save"></i> {{formatDate modifiedDate 'DD/MM/YY HH:mm'}}
 </p>
 <div class="btn-group btn-group-vertical">
 	{{#if previous}}

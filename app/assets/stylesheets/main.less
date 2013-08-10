@@ -85,8 +85,8 @@ section#contents {
             
             td.lane {
               border: 1px solid #bbb;
-              border-radius: 4px;
               width: 25%;
+              min-width: 172px;
               vertical-align: top;
               
               h4.lane_title {
@@ -133,10 +133,15 @@ section#alert {
   }
 }
 
-@media screen and (max-width: 767px) {
-  article.project section.stories article.story table.issues td.lane {
+@media screen and (max-width: 822px) {
+  section#contents article.project section.stories article.story table.issues tr td.lane {
     display: compact;
-    min-width: inherit;
+    min-width: 100%;
+    border-bottom: 0px;
+  }
+  
+  section#contents article.project section.stories article.story table.issues tr td.lane:last-child {
+    border-bottom: 1px solid #bbb;
   }
 }
 

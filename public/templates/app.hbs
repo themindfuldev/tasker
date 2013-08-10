@@ -1,11 +1,10 @@
 <nav class="navbar">
 	<div class="navbar-inner">
 		<a class="brand">Tasker</a>
-		<ul id="menu" class="nav"></ul>
 		<ul class="nav pull-right">
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					{{i18n 'language.language'}} {{lang}}
+					<span class="language">{{i18n 'language.language'}} </span>{{lang}}
 			  	</a>
 			  	<ul class="dropdown-menu">
 					<li>
@@ -16,7 +15,8 @@
 	          	</li>		  	
 	         </ul>
 	   	</li>
-		</span>
+		</ul>
+		<ul id="menu" class="nav"></ul>		
 	</div>
 </nav>
 <section id="page"></section>

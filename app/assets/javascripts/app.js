@@ -56,7 +56,8 @@ $(function() {
 	var lang = $.cookie('lang');
 
 	if (!lang) {
-		lang = $.i18n.browserLang();
+		lang = 'en_US';
+		$.cookie('lang', lang, { expires: 365 });
 	}
 
 	$.i18n.properties({

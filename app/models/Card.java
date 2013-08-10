@@ -202,7 +202,7 @@ public class Card extends Model {
 	 *           the card
 	 */
 	public static void update(Card card) {
-		card.modifiedDate = new Date();
+		card.setModifiedDate(new Date());
 		card.save();
 	}
 

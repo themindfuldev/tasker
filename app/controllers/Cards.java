@@ -10,12 +10,12 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 
-import flexjson.JSONSerializer;
-
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import flexjson.JSONSerializer;
 
 /**
  * This controller is supposed to expose the Cards REST API.
@@ -72,6 +72,7 @@ public class Cards extends Controller {
 	 * @return the result
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
+	@Transactional
 	public static Result create() {
 		ObjectMapper mapper = new ObjectMapper();
 		Result result = null;
@@ -120,6 +121,7 @@ public class Cards extends Controller {
 	 * @return the return
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
+	@Transactional
 	public static Result update(Long id) {
 		ObjectMapper mapper = new ObjectMapper();
 		Result result = null;
@@ -150,6 +152,7 @@ public class Cards extends Controller {
 	 *           the card id
 	 * @return the return
 	 */
+	@Transactional
 	public static Result delete(Long id) {
 		Result result = null;
 

@@ -19,7 +19,7 @@ applications, such as:
  
 ### Front-end 
  
-* MVC on the client-side with Backbone.js
+* MV* on the client-side with Backbone.js
   * REST-based models
   * views
   * routers
@@ -63,13 +63,13 @@ applications, such as:
 * Install Play! Framework and make sure it is available from command-line
 * Checkout this project
 * Enter Play! console by typing:
-  play
+  ```play```
 
 ## Tasks on Play! console
 
 * Compile: 
-  compile	
+  ```compile```	
 * Test: 
-  test
+  ```test```
 * Run: 
-  run
+  ```run```

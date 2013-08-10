@@ -8,7 +8,7 @@ App.CardHelpers = {
 					gender = $.i18n.prop('gender.type.' + originalType),
 					message;
 				
-				if (gender) {
+				if (gender[0] !== '[') {
 					message = $.i18n.prop('message.card_created_' + gender, data.title, type);
 				}
 				else {
@@ -29,7 +29,7 @@ App.CardHelpers = {
 					gender = $.i18n.prop('gender.type.' + originalType),
 					message;
 				
-				if (gender) {
+				if (gender[0] !== '[') {
 					message = $.i18n.prop('message.card_not_created_' + gender, data.title, type);
 				}
 				else {
@@ -53,7 +53,7 @@ App.CardHelpers = {
 					title = data.title,
 					message;
 				
-				if (gender) {
+				if (gender[0] !== '[') {
 					message = $.i18n.prop('message.card_updated_' + gender, title, type);
 				}
 				else {
@@ -75,7 +75,7 @@ App.CardHelpers = {
 					title = data.title,
 					message;
 				
-				if (gender) {
+				if (gender[0] !== '[') {
 					message = $.i18n.prop('message.card_not_updated_' + gender, title, type);
 				}
 				else {
@@ -101,7 +101,7 @@ App.CardHelpers = {
 						title = self.model.attributes.title,
 						message;
 					
-					if (gender) {
+					if (gender[0] !== '[') {
 						message = $.i18n.prop('message.card_removed_' + gender, title, type);
 					}
 					else {
@@ -124,7 +124,7 @@ App.CardHelpers = {
 					title = self.model.attributes.title,
 					message;
 				
-				if (gender) {
+				if (gender[0] !== '[') {
 					message = $.i18n.prop('message.card_not_removed_' + gender, title, type);
 				}
 				else {

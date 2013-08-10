@@ -12,12 +12,14 @@ nav.navbar {
     font-weight: bold;
   }
   
-  ul#menu li a i {
-    vertical-align: baseline;
-  }
+  ul.nav {
+    li a i {
+      vertical-align: baseline;
+    }
   
-  ul#menu li a:hover {
-    background-color: #e5e5e5;
+    li:hover {
+      background-color: #e5e5e5;
+    }
   }
 
 }
@@ -138,14 +140,14 @@ section#alert {
     table.issues tr {
       td.lane {
         display: inline-block;
-        min-width: 49%;
+        min-width: 49.5%;
       }
     }
   }
   
 }
 
-@media screen and (max-width: 655px) {
+@media screen and (max-width: 661px) {
 
   section#contents article.project section.stories article.story {
     table.issues tr {
@@ -178,5 +180,11 @@ section#alert {
   
   nav.navbar ul.nav li.dropdown span.language {
     display: none;
+  }
+}
+
+@-moz-document url-prefix() {
+  section#contents article.project .btn-group > .btn {
+    font-size: 13px;
   }
 }

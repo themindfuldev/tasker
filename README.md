@@ -62,15 +62,10 @@ applications, such as:
 * Install JDK 7 and make sure it is available from command-line
 * Install Play! Framework and make sure it is available from command-line
 * Checkout this project
-* Enter Play! console by typing:
-  ```play```
+* Enter Play! console by typing: ```play```
 
 ## Tasks on Play! console
 
-* Compile: 
-  ```compile```
-  
-* Test: 
-  ```test```
-* Run: 
-  ```run```
+* Compile: ```compile```
+* Test: ```test```
+* Run: ```run```

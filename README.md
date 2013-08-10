@@ -68,7 +68,7 @@ applications, such as:
 ## Tasks on Play! console
 
 * Compile: 
-  ```compile```	
+  ```compile```
 * Test: 
   ```test```
 * Run: 

@@ -79,12 +79,12 @@ section#contents {
         table.issues {
           margin-top: 20px;
           min-width: 100%;
+          border: 1px solid #bbb;
           
           tr {
             min-width: 100%;
             
             td.lane {
-              border: 1px solid #bbb;
               width: 25%;
               min-width: 172px;
               vertical-align: top;
@@ -134,35 +134,45 @@ section#alert {
 }
 
 @media screen and (max-width: 822px) {
-  section#contents article.project section.stories article.story table.issues tr td.lane {
-    display: compact;
-    min-width: 100%;
-    border-bottom: 0px;
+  section#contents article.project section.stories article.story {
+    table.issues tr {
+      td.lane {
+        display: inline-block;
+        min-width: 49%;
+      }
+    }
   }
   
-  section#contents article.project section.stories article.story table.issues tr td.lane:last-child {
-    border-bottom: 1px solid #bbb;
-  }
 }
 
 @media screen and (max-width: 655px) {
-  article.story > div.btn-group {
-    a.btn {
-      display: block;
-      border-radius: 0px;
-    }
-    
-    a.btn:first-child {
-      border-radius: 4px 4px 0 0;
-    }
 
-    a.btn:last-child {
-      border-radius: 0 0 4px 4px;
+  section#contents article.project section.stories article.story {
+    table.issues tr {
+      td.lane {
+        display: compact;
+        min-width: 100%;
+      }
     }
     
-    a.btn + a.btn {
-      margin-top: -1px;
-      margin-left: 0px;
+    div.btn-group {
+      a.btn {
+        display: block;
+        border-radius: 0px;
+      }
+      
+      a.btn:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+  
+      a.btn:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+      
+      a.btn + a.btn {
+        margin-top: -1px;
+        margin-left: 0px;
+      }
     }
   }
   

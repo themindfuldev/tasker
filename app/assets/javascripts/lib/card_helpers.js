@@ -44,28 +44,32 @@ App.CardHelpers = {
 		});
 	},
 	
-	update : function(self, data) {
+	update : function(self, data, newLaneElement) {
 		self.model.save(data, {
 			success: function(model) {
-				var originalType = data.type.toLowerCase(),
-					type = $.i18n.prop('type.' + originalType),
-					gender = $.i18n.prop('gender.type.' + originalType),
-					title = data.title,
-					message;
-				
-				if (gender[0] !== '[') {
-					message = $.i18n.prop('message.card_updated_' + gender, title, type);
-				}
-				else {
-					message = $.i18n.prop('message.card_updated', title, type); 
-				}
-				
-				App.Alert.push({
-					message: message,
-					type: 'success'
+				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
+					var originalType = data.type.toLowerCase(),
+						type = $.i18n.prop('type.' + originalType),
+						gender = $.i18n.prop('gender.type.' + originalType),
+						title = data.title,
+						message;
+					
+					if (gender[0] !== '[') {
+						message = $.i18n.prop('message.card_updated_' + gender, title, type);
+					}
+					else {
+						message = $.i18n.prop('message.card_updated', title, type); 
+					}
+					
+					App.Alert.push({
+						message: message,
+						type: 'success'
+					});
+					
+					newLaneElement.append(self.el);
+					self.render();
+					self.$el.fadeIn();
 				});
-				
-				Backbone.history.loadUrl(Backbone.history.fragment);		
 			},
 			
 			error: function(model) {
@@ -95,10 +99,10 @@ App.CardHelpers = {
 		self.model.destroy({
 			success: function(model) {
 				App.AnimationBuffer.add(self.$el.fadeOut, self.$el, function() {
-					var originalType = self.model.attributes.type.toLowerCase(),
+					var originalType = self.model.get('type').toLowerCase(),
 						type = $.i18n.prop('type.' + originalType),
 						gender = $.i18n.prop('gender.type.' + originalType),
-						title = self.model.attributes.title,
+						title = self.model.get('title'),
 						message;
 					
 					if (gender[0] !== '[') {
@@ -118,10 +122,10 @@ App.CardHelpers = {
 			},
 			
 			error: function(model) {
-				var originalType = self.model.attributes.title.toLowerCase(),
+				var originalType = self.model.get('title').toLowerCase(),
 					type = $.i18n.prop('type.' + originalType),
 					gender = $.i18n.prop('gender.type.' + originalType),
-					title = self.model.attributes.title,
+					title = self.model.get('title'),
 					message;
 				
 				if (gender[0] !== '[') {

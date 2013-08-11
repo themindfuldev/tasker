@@ -134,6 +134,7 @@ public class Cards extends Controller {
 			if (cardFromPersistence.getStatus().equals(cardFromJson.getStatus()) == false) {
 				cardFromPersistence.setStatus(cardFromJson.getStatus());
 				Card.update(cardFromPersistence);
+				cardFromPersistence.setParent(null);
 				result = ok(cardSerializer.serialize(cardFromPersistence));
 			} else {
 				result = noContent();

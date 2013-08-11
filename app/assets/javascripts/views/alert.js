@@ -7,11 +7,13 @@ App.Views.Alert = Backbone.View.extend({
 	},
 
 	render : function() {
-		var template = HandlebarsCompiler.get(this.name);
+		var template = HandlebarsCompiler.get(this.name),
+			type = this.model.get('type');
+		
 		this.$el.html(template(this.model.toJSON()));
 
-		if (this.model.attributes.type) {
-			this.$el.addClass('alert-' + this.model.attributes.type);
+		if (type) {
+			this.$el.addClass('alert-' + type);
 		}
 	},
 

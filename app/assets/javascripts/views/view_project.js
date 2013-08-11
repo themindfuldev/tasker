@@ -8,13 +8,15 @@ App.Views.ViewProject = Backbone.View.extend({
 	},
 	
 	render : function() {
-		var template = HandlebarsCompiler.get(this.name);
+		var template = HandlebarsCompiler.get(this.name),
+			children = this.model.get('children');
+		
 		this.$el.html(template(this.model.toJSON()));
 		
 		this.containerFragment = document.createDocumentFragment();
 		
-		if (this.model.attributes.children) {
-			this.model.attributes.children.forEach(this.addOne, this);
+		if (children) {
+			children.forEach(this.addOne, this);
 		}
 		
 		this.$el.find('#project_' + this.model.id + '_stories').append(this.containerFragment);

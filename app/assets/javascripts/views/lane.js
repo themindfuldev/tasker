@@ -7,5 +7,6 @@ App.Views.Lane = Backbone.View.extend({
 		var template = HandlebarsCompiler.get(this.name);
 		
 		this.$el.html(template(this.model.toJSON()));
+		this.$el.attr('data-lane', this.options.lane);
 	}
 });

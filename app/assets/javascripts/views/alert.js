@@ -20,10 +20,8 @@ App.Views.Alert = Backbone.View.extend({
 	collapse : function(event) {
 		event.preventDefault();
 
-		this.$el.fadeOut({
-			complete : function() {
-				this.remove();
-			}
+		App.AnimationBuffer.add(this.$el.fadeOut, this.$el, function(){
+			this.remove();
 		});
 	}
 });

@@ -61,14 +61,16 @@ App.CardHelpers = {
 						message = $.i18n.prop('message.card_updated', title, type); 
 					}
 					
-					App.Alert.push({
+					App.Alert.alert({
 						message: message,
 						type: 'success'
 					});
-					
+
+					// Re-rendering element
 					newLaneElement.append(self.el);
 					self.render();
-					self.$el.fadeIn();
+					App.AnimationBuffer.add(self.$el.fadeIn, self.$el);
+
 				});
 			},
 			

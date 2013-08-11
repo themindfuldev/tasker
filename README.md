@@ -69,3 +69,9 @@ applications, such as:
 * Compile: ```compile```
 * Test: ```test```
 * Run: ```run```
+
+## License
+
+Tasker from [Tiago Romero Garcia](http://www.tgarcia.com.br) is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/deed.en). 
+Based on a work at [http://github.com/tiagorg/tasker](http://github.com/tiagorg/tasker). 
+Permissions beyond the scope of this license may be available at [http://tgarcia.com.br/contato](http://tgarcia.com.br/contato).

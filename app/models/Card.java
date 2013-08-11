@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import play.db.ebean.Model;
 
@@ -60,6 +61,7 @@ public class Card extends Model {
 	private Card parent;
 
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.REMOVE })
+	@OrderBy("modifiedDate")
 	private List<Card> children;
 
 	/*

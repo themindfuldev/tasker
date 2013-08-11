@@ -4,13 +4,13 @@ App.Models.Card = Backbone.Model.extend({
 		var errors = [];
 
 	    if (!attrs.title) {
-	        errors.push({name: 'title', message: 'Este campo é obrigatório!'});
+	        errors.push({name: 'title', message: $.i18n.prop('message.mandatory_field')});
 	    }
 	    if (!attrs.description) {
-	        errors.push({name: 'description', message: 'Este campo é obrigatório!'});
+	        errors.push({name: 'description', message: $.i18n.prop('message.mandatory_field')});
 	    }
 	    if (!attrs.assignee) {
-	        errors.push({name: 'assignee', message: 'Este campo é obrigatório!'});
+	        errors.push({name: 'assignee', message: $.i18n.prop('message.mandatory_field')});
 	    }
 
 	    return errors.length > 0 ? errors : false;

@@ -2,8 +2,8 @@
 
 *Tasker* is a sample web application, developed by [Tiago Romero Garcia](http://www.tgarcia.com.br)
  to illustrate some articles he wrote for [Java Magazine](http://www.devmedia.com.br/java) in Brazil about 
- using [Backbone.js](http://backbonejs.org) and [Handlebars.js](http://handlebarsjs.com) on the front-end and 
- [Play!](http://www.playframework.com) over Java on the back-end.
+ using [Backbone.js](http://backbonejs.org) and [Handlebars.js](http://handlebarsjs.com) on the client-side and 
+ [Play!](http://www.playframework.com) over Java on the server-side.
 
 This application simulates a very simple Kanban board based on Agile methodologies. Basically, the board can
  have multiple projects, each project can have multiple stories and each story can have multiple issues,
@@ -17,7 +17,7 @@ The user can create and remove projects, stories and issues, and also move issue
 The main purpose of Tasker is to demonstrate important front-end concepts of nowadays about smart client-side
 applications, such as:
  
-### Front-end 
+### Client-side 
  
 * MV* on the client-side with Backbone.js
   * REST-based models
@@ -39,7 +39,7 @@ applications, such as:
 * UI-level i18n 
 * Responsive/adaptive layout
  
-### Back-end
+### Server-side
  
 * Play! Framework as a modern, simple yet powerful back-end
   * models

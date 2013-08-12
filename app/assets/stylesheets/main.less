@@ -121,7 +121,7 @@ section#contents {
     }
     span.error-message {
       color: red;
-    }      
+    }
     input[type=text].error {
       border: 1px solid red;
     }
@@ -143,8 +143,13 @@ section#alert {
         min-width: 49.5%;
       }
     }
+  } 
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    padding: 0px;
   }
-  
 }
 
 @media screen and (max-width: 661px) {
@@ -176,11 +181,20 @@ section#alert {
         margin-left: 0px;
       }
     }
+    
   }
   
   nav.navbar ul.nav li.dropdown span.language {
     display: none;
   }
+}
+
+@media screen and (max-width: 480px) {
+
+  section#contents form#new-card input[type=text] {
+    display: block;
+  }      
+
 }
 
 @-moz-document url-prefix() {

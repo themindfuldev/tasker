@@ -192,8 +192,11 @@ public class Card extends Model {
 	 *           the card
 	 */
 	public static void create(Card card) {
-		card.status = Status.BACKLOG;
-		card.createdDate = card.modifiedDate = new Date();
+		card.setStatus(Status.BACKLOG);
+		
+		Date now = new Date();
+		card.setCreatedDate(now);
+		card.setModifiedDate(now);
 		card.save();
 	}
 

@@ -1,6 +1,6 @@
 # Tasker
 
-*Tasker* is a sample web application, developed by [Tiago Romero Garcia](http://www.tgarcia.com.br)
+*Tasker* is a sample web application, developed by [Tiago Romero Garcia](http://www.tiagorg.com)
  to illustrate some articles he wrote for [Java Magazine](http://www.devmedia.com.br/java) in Brazil about 
  using [Backbone.js](http://backbonejs.org) and [Handlebars.js](http://handlebarsjs.com) on the client-side and 
  [Play!](http://www.playframework.com) over Java on the server-side.
